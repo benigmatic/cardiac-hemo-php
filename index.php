@@ -1,18 +1,16 @@
 <?php
 require "database/config.php";
-echo "testing login info";
  //Establish the connection
  $conn = mysqli_init();
  mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
  if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
      die('Failed to connect to MySQL: '.mysqli_connect_error());
  }
- echo "connection established <br>";
  //Test if table exists
  $res = mysqli_query($conn, "SHOW TABLES LIKE 'students'");
 
  if (mysqli_num_rows($res) <= 0) {
-     echo "/n No students";
+     echo "No students in the table";
  } else {
      //Query and print data
      $res = mysqli_query($conn, 'SELECT * FROM students');
@@ -23,10 +21,8 @@ echo "testing login info";
      else {
          echo "Data shown";
          while ($row = mysqli_fetch_assoc($res)) {
-             echo "SID. ".$row["SID"]." <br>";
-             echo "Lastname:  ".$row["LastName"]." <br>";
-             echo "FirstName:  ".$row["FirstName"]." <br>";
+             echo $row["SID"] . "," . $row["Password"] . "," . $row["FirstName"]."*";
          }
-         echo "</table>";
+         
      }
  }
