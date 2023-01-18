@@ -15,7 +15,7 @@ echo "testing login info";
      echo "/n No students";
  } else {
      //Query and print data
-     $res = mysqli_query($conn, 'SELECT * FROM Products');
+     $res = mysqli_query($conn, 'SELECT * FROM students');
 
      if (mysqli_num_rows($res) <= 0) {
          echo "No Students found in the table";
