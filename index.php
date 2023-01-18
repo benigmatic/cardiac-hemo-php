@@ -24,7 +24,7 @@ echo "testing login info";
          echo "Data shown";
          while ($row = mysqli_fetch_assoc($res)) {
              echo "SID. ".$row["SID"]." <br>";
-             echo "Lastname:  ".$row["Lastname"]." <br>";
+             echo "Lastname:  ".$row["LastName"]." <br>";
              echo "FirstName:  ".$row["FirstName"]." <br>";
          }
          echo "</table>";
