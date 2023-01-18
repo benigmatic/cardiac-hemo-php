@@ -13,13 +13,13 @@ require "database/config.php";
      echo "No students in the table";
  } else {
      //Query and print data
+     // TODO:Change the echo of values into a json instead
      $res = mysqli_query($conn, 'SELECT * FROM students');
 
      if (mysqli_num_rows($res) <= 0) {
          echo "No Students found in the table";
      }
      else {
-         echo "Data shown";
          while ($row = mysqli_fetch_assoc($res)) {
              echo $row["SID"] . "," . $row["Password"] . "," . $row["FirstName"]."*";
          }
