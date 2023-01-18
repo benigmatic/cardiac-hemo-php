@@ -21,7 +21,7 @@ echo "testing login info";
          echo "No Students found in the table";
      }
      else {
-         echo "Data shhown";
+         echo "Data shown";
          while ($row = mysqli_fetch_assoc($res)) {
              echo "SID. ".$row["SID"]." <br>";
              echo "Lastname:  ".$row["Lastname"]." <br>";
