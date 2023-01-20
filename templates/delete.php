@@ -1,6 +1,4 @@
-<?php require "templates/header.php"; ?>
 
-<div class="center-align">
 
     <?php
 

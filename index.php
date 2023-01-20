@@ -1,4 +1,5 @@
 <?php
+// Creates a connection with the database, runs queries: tests that table exists and return all values from students.
 require "database/config.php";
  //Establish the connection
  $conn = mysqli_init();
@@ -12,8 +13,7 @@ require "database/config.php";
  if (mysqli_num_rows($res) <= 0) {
      echo "No students in the table";
  } else {
-     //Query and print data
-     // TODO:Change the echo of values into a json instead
+// Selects all data from students table (SID, password, and First Name)
      $res = mysqli_query($conn, 'SELECT * FROM students');
 
      if (mysqli_num_rows($res) <= 0) {
