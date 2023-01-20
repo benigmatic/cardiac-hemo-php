@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'hemo-cardiac'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_359AB39DC7474244A51C19186C2A87E0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_01B5EC85A687420FB1E9128FCF58510E }}
           package: .
