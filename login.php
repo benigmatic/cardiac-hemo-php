@@ -17,5 +17,15 @@ $SID = "123@aol.com";
 echo $SID;
 // Run query to select a student from the database
 $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
-$result = mysql_query($query) or die('Query failed: ' . mysql_error()); 
-echo $result;
+$res = mysqli_query($conn, $query); 
+if (mysqli_num_rows($res) <= 0) {
+    echo "No Students found in the table";
+}
+else {
+    while ($row = mysqli_fetch_assoc($res)) {
+        echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
+    }
+    
+}
+//Creates a json file to send to Unity apps
+
