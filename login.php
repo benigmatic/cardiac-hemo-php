@@ -14,7 +14,7 @@ require "database/config.php";
 // Get login SID from Unity, 
 //$SID = mysql_real_escape_string($_GET['name'], $conn);
 $SID = "123@aol.com";
-echo $SID;
+echo $SID . "<br> ";
 // Run query to select a student from the database
 $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
 $res = mysqli_query($conn, $query); 
