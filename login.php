@@ -1,8 +1,13 @@
 <?php
-/* Receives the login information from Unity,
+/* What it does:
+    Receives the login information from Unity,
     runs query to find the user with the same login SID, validates them 
     returns 0 if the user doesn't exist, returns json with Section number (App Settings if needed) 
+    URL: https://hemo-cardiac.azurewebsites.net//login.php?var1=SID_value 
+        where SID_value is the SID sent from Unity
+    Source for PHP for variable parsing: https://stackoverflow.com/questions/44759249/unity-c-sharp-send-variable-to-php-server
 */
+
 require "database/config.php";
  //Establish the connection
  $conn = mysqli_init();
@@ -11,10 +16,21 @@ require "database/config.php";
      die('Failed to connect to MySQL: '.mysqli_connect_error());
  }
 
-// Get login SID from Unity, 
-//$SID = mysql_real_escape_string($_GET['name'], $conn);
-$SID = "123@aol.com";
-echo $SID . "<br> ";
+// Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
+if (isset($_REQUEST["var1"])) {
+    echo "Received ". $_REQUEST["var1"]. " success!";
+    exit();
+} else {
+    http_status_code(400);
+    echo "Request Failed";
+}
+//TODO: Test this: Prevents Injection
+/*
+$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
+*/
+$SID = $_REQUEST["var1"];
+echo ($SID . "/n");
+echo 
 // Run query to select a student from the database
 $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
 $res = mysqli_query($conn, $query); 
