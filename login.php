@@ -28,9 +28,9 @@ if (isset($_REQUEST["var1"])) {
 }
 //TODO: Test this: Prevents Injection
 
-$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
+//$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
 
-//$SID = &$_REQUEST['var1'];
+$SID = &$_REQUEST['var1'];
 echo ($SID . "/n");
 
 // Run query to select a student from the database
