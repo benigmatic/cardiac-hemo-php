@@ -24,14 +24,14 @@ if (isset($_REQUEST["var1"])) {
     
 } else {
     http_status_code(400);
-    echo "Request Failed";
+    die("Variables not received");
 }
 //TODO: Test this: Prevents Injection
 
 //$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
 
 $SID = &$_REQUEST['var1'];
-echo ($SID . "/n");
+//echo ($SID . "/n");
 
 // Run query to select a student from the database
 $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
@@ -42,8 +42,9 @@ if (mysqli_num_rows($res) <= 0) {
 else {
     //Creates a json file to send to Unity apps. Returns SID, FirstName, ClassSection
     echo $row["FirstName"] . "," . $row["ClassSection"] ."*    ";
-    $Name=&$row["FirstName"];
-    $Section=&$row("ClassSection");
+    $Name= &$row["FirstName"];
+    $Section= &$row("ClassSection");
+    echo $Name . "***";
     $Login_res = new stdClass();
     $Login_res->objects = [$SID, $Name,$Section ];
     echo json_encode($Login_res);
