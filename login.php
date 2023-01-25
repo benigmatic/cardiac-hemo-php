@@ -40,12 +40,16 @@ if (mysqli_num_rows($res) <= 0) {
     echo "No Students found in the table";
 }
 else {
-    while ($row = mysqli_fetch_assoc($res)) {
-        echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
-        $Name = &$row["FirstName"];
-        echo "   " . $Name;
-    }
-    
+    $row = mysqli_fetch_assoc($res);
+    echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
+    $Name = &$row["FirstName"];
+    $Section = &$row["ClassSection"];
+    echo "  \n " . $Name;
+    //Create a json file to return
+    $Login_res = new stdClass();
+    $Login_res->objects = [$SID, $Name,$Section ];
+    echo "Here \n";
+    echo json_encode($Login_res);
 }
 //Creates a json file to send to Unity apps
 /*
