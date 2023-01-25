@@ -42,6 +42,8 @@ if (mysqli_num_rows($res) <= 0) {
 else {
     while ($row = mysqli_fetch_assoc($res)) {
         echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
+        $Name = &$row["FirstName"];
+        echo "   " . $Name;
     }
     
 }
