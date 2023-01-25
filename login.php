@@ -21,7 +21,7 @@ require "database/config.php";
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"])) {
     echo "Received ". $_REQUEST["var1"]. " success!";
-    exit();
+    
 } else {
     http_status_code(400);
     echo "Request Failed";
