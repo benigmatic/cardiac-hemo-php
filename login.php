@@ -37,16 +37,15 @@ if (isset($_REQUEST["var1"])) {
         echo ("Here1");
         echo $row["FirstName"] . "," . $row["ClassSection"] ."*    ";
         echo ("Here2");
-        $Name= &$row["FirstName"];
-        $Section= &$row("ClassSection");
-        echo $Name;
-        echo "   Here3   ";
-        $Login_res = new stdClass();
-        $Login_res->objects = [$SID, $Name,$Section ];
-        echo ("Here4");
-        echo json_encode($Login_res);
-
     }
+    $Name= &$row["FirstName"];
+    $Section= &$row("ClassSection");
+    echo $Name;
+    echo "   Here3   ";
+    $Login_res = new stdClass();
+    $Login_res->objects = [$SID, $Name,$Section ];
+    echo ("Here4");
+    echo json_encode($Login_res);
 } else {
     http_status_code(400);
     die("Variables not received");
