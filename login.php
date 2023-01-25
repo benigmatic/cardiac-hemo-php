@@ -27,10 +27,10 @@ if (isset($_REQUEST["var1"])) {
     echo "Request Failed";
 }
 //TODO: Test this: Prevents Injection
-/*
+
 $SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
-*/
-$SID = &$_REQUEST['var1'];
+
+//$SID = &$_REQUEST['var1'];
 echo ($SID . "/n");
 
 // Run query to select a student from the database
@@ -40,10 +40,11 @@ if (mysqli_num_rows($res) <= 0) {
     echo "No Students found in the table";
 }
 else {
-    while ($row = mysqli_fetch_assoc($res)) {
-        echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
-    }
-    
+    //Creates a json file to send to Unity apps. Returns SID, FirstName, ClassSection
+    //echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
+    $Login_res = new stdClass();
+    $Login_res->objects = [$SID, $row["FirstName"],$row["ClassSection"] ];
+    echo json_encode($Login_res);
+
 }
-//Creates a json file to send to Unity apps
 
