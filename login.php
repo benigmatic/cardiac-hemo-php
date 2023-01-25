@@ -30,7 +30,7 @@ $SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
 */
 $SID = $_REQUEST["var1"];
 echo ($SID . "/n");
-echo 
+
 // Run query to select a student from the database
 $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
 $res = mysqli_query($conn, $query); 
