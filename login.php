@@ -9,57 +9,41 @@
 */
 
 require "database/config.php";
- //Establish the connection
- $conn = mysqli_init();
- mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
- if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
-     die('Failed to connect to MySQL: '.mysqli_connect_error());
- } else{
-    echo "Connection secured /n";
- }
+//Establish the connection
+$conn = mysqli_init();
+mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
+if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
+    die('Failed to connect to MySQL: '.mysqli_connect_error());
+} else{
+   echo "Connection secured /n";
+}
 
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"])) {
-    echo "Received ". $_REQUEST["var1"]. " success!";
-    
+
+    //TODO: Test this: Prevents Injection
+    /*
+    $SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
+    */
+    $SID = &$_REQUEST["var1"];
+    echo ($SID . "/n");
+
+    // Run query to select a student from the database
+    $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
+    $res = mysqli_query($conn, $query); 
+    if (mysqli_num_rows($res) <= 0) {
+        echo "No Students found in the table";
+    }
+    else {
+        $row = mysqli_fetch_assoc($res);
+        $Name = &$row["FirstName"];
+        $Section = &$row["ClassSection"];
+        //Creates a json file to return
+        $Login_res = new stdClass();
+        $Login_res->objects = [$SID, $Name,$Section ];
+        echo json_encode($Login_res);
+    }
 } else {
     http_status_code(400);
-    echo "Request Failed";
 }
-//TODO: Test this: Prevents Injection
-/*
-$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
-*/
-$SID = &$_REQUEST["var1"];
-echo ($SID . "/n");
-
-// Run query to select a student from the database
-$query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
-$res = mysqli_query($conn, $query); 
-if (mysqli_num_rows($res) <= 0) {
-    echo "No Students found in the table";
-}
-else {
-    $row = mysqli_fetch_assoc($res);
-    echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
-    $Name = &$row["FirstName"];
-    $Section = &$row["ClassSection"];
-    echo "  \n " . $Name;
-    //Create a json file to return
-    $Login_res = new stdClass();
-    $Login_res->objects = [$SID, $Name,$Section ];
-    echo "Here \n";
-    echo json_encode($Login_res);
-}
-//Creates a json file to send to Unity apps
-/*
-$Name= &$row["FirstName"];
-    $Section= &$row("ClassSection");
-    echo $Name;
-    echo "   Here3   ";
-    $Login_res = new stdClass();
-    $Login_res->objects = [$SID, $Name,$Section ];
-    echo ("Here4");
-    echo json_encode($Login_res);
-    */
 ?>
