@@ -41,10 +41,13 @@ if (mysqli_num_rows($res) <= 0) {
 }
 else {
     //Creates a json file to send to Unity apps. Returns SID, FirstName, ClassSection
-    //echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
+    echo $row["FirstName"] . "," . $row["ClassSection"] ."*    ";
+    $Name=&$row["FirstName"];
+    $Section=&$row("ClassSection");
     $Login_res = new stdClass();
-    $Login_res->objects = [$SID, $row["FirstName"],$row["ClassSection"] ];
+    $Login_res->objects = [$SID, $Name,$Section ];
     echo json_encode($Login_res);
 
 }
 
+?>
