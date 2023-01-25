@@ -20,25 +20,34 @@ require "database/config.php";
 
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"])) {
-    //echo "Received ". $_REQUEST["var1"]. " success!";
-    //TODO: Test this: Prevents Injection
-    //$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
-    $SID = &$_REQUEST['var1'];
-    echo ($SID . "/n");
+    echo "Received ". $_REQUEST["var1"]. " success!";
+    exit();
+} else {
+    http_status_code(400);
+    echo "Request Failed";
+}
+//TODO: Test this: Prevents Injection
+/*
+$SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
+*/
+$SID = &$_REQUEST["var1"];
+echo ($SID . "/n");
 
-    // Run query to select a student from the database
-    $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
-    $res = mysqli_query($conn, $query); 
-    if (mysqli_num_rows($res) <= 0) {
-        echo "No Students found in the table";
+// Run query to select a student from the database
+$query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
+$res = mysqli_query($conn, $query); 
+if (mysqli_num_rows($res) <= 0) {
+    echo "No Students found in the table";
+}
+else {
+    while ($row = mysqli_fetch_assoc($res)) {
+        echo $row["FirstName"] . "," . $row["ClassSection"] ."*";
     }
-    else {
-        //Creates a json file to send to Unity apps. Returns SID, FirstName, ClassSection
-        echo ("Here1");
-        echo $row["FirstName"] . "," . $row["ClassSection"] ."*    ";
-        echo ("Here2");
-    }
-    $Name= &$row["FirstName"];
+    
+}
+//Creates a json file to send to Unity apps
+/*
+$Name= &$row["FirstName"];
     $Section= &$row("ClassSection");
     echo $Name;
     echo "   Here3   ";
@@ -46,10 +55,5 @@ if (isset($_REQUEST["var1"])) {
     $Login_res->objects = [$SID, $Name,$Section ];
     echo ("Here4");
     echo json_encode($Login_res);
-} else {
-    http_status_code(400);
-    die("Variables not received");
-}
-
-
+    */
 ?>
