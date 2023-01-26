@@ -21,7 +21,8 @@ require "database/config.php";
      }
      else {
          while ($row = mysqli_fetch_assoc($res)) {
-             echo $row["SID"] . "," . $row["Password"] . "," . $row["FirstName"]."*" . "<br>";
+             // echo $row["SID"] . "," . $row["Password"] . "," . $row["FirstName"]."*" . "<br>"; // feel free to revert
+             echo "SID: " . $row["SID"] . ", ClassSection:" . $row["ClassSection"] . ", Name:" . $row["FirstName"] . "<br>"; // plz comment insted of delet ty
          }
          
      }
