@@ -41,7 +41,7 @@ $section = $POST['ClassSection'];
 // } else {
 //     http_status_code(400);
 // }
-echo "I am in a spongebob world";
+echo "I am in a spongebob worrrld";
 echo "This, is, Sponge, Bob";
 echo $name;
 
