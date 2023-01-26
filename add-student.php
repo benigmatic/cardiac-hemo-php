@@ -23,8 +23,8 @@ $name = $_POST['FirstName'];
 $sid = intval($_POST['SID']);
 $section = intval($_POST['ClassSection']);
 
-stmt = conn.prepare("INSERT INTO students (FirstName, SID, ClassSection) VALUES (?, ?, ?)");
-stmt.bind_param("sii", $name, $sid, $section);
+$stmt = $conn->prepare("INSERT INTO students (FirstName, SID, ClassSection) VALUES (?, ?, ?)");
+$stmt->bind_param("sii", $name, $sid, $section);
 
 if ($stmt->execute())
 {
