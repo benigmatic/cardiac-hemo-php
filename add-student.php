@@ -20,7 +20,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // echo 'updated';
 
 $name = $_POST['FirstName'];
-$sid = $_POST['SID'];
+$sid = intval($_POST['SID']);
 $section = intval($_POST['ClassSection']);
 
 $sql = "INSERT INTO students (FirstName, SID, ClassSection) VALUES ('$name', '$sid', '$section')";
