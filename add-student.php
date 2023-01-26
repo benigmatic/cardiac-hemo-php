@@ -23,10 +23,10 @@ $name = $_POST['FirstName'];
 $sid = intval($_POST['SID']);
 $section = intval($_POST['ClassSection']);
 
-$sql = "INSERT INTO students (FirstName, SID, ClassSection) VALUES ('$name', '$sid', '$section')";
+stmt = conn.prepare("INSERT INTO students (FirstName, SID, ClassSection) VALUES (?, ?, ?)");
+stmt.bind_param("sii", $name, $sid, $section);
 
-
-if ($conn->query($sql) === TRUE)
+if ($stmt->execute())
 {
     echo "New record created successfully";
 } 
