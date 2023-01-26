@@ -20,6 +20,15 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $name = $_POST['FirstName'];
 $sid = $_POST['SID'];
 $section = $POST['ClassSection'];
+
+$sql = "INSERT INTO Students (name, sid, section)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
 // Check that a new user has been sent
 // if (isset($_REQUEST["SID"])) {
 //     // $SID = &$_REQUEST["var1"];
