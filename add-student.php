@@ -17,24 +17,25 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 } 
 
 // Check that a new user has been sent
-if (isset($_REQUEST["SID"])) {
-    // $SID = &$_REQUEST["var1"];
-    // Run query to select a student from the database
-    $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
-    $res = mysqli_query($conn, $query); 
-    if (mysqli_num_rows($res) <= 0) {
-        echo "No Students found in the table";
-    }
-    else {
-        $row = mysqli_fetch_assoc($res);
-        $Name = &$row["FirstName"];
-        $Section = &$row["ClassSection"];
-        //Creates a json file to return
-        $Login_res = new stdClass();
-        $Login_res->objects = [$SID, $Name,$Section ];
-        echo json_encode($Login_res);
-    }
-} else {
-    http_status_code(400);
-}
+// if (isset($_REQUEST["SID"])) {
+//     // $SID = &$_REQUEST["var1"];
+//     // Run query to select a student from the database
+//     $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
+//     $res = mysqli_query($conn, $query); 
+//     if (mysqli_num_rows($res) <= 0) {
+//         echo "No Students found in the table";
+//     }
+//     else {
+//         $row = mysqli_fetch_assoc($res);
+//         $Name = &$row["FirstName"];
+//         $Section = &$row["ClassSection"];
+//         //Creates a json file to return
+//         $Login_res = new stdClass();
+//         $Login_res->objects = [$SID, $Name,$Section ];
+//         echo json_encode($Login_res);
+//     }
+// } else {
+//     http_status_code(400);
+// }
+echo "I am in a spongebob world";
 ?>
