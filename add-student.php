@@ -16,6 +16,10 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
+
+$name = $_POST['FirstName'];
+$sid = $_POST['SID'];
+$section = $POST['ClassSection'];
 // Check that a new user has been sent
 // if (isset($_REQUEST["SID"])) {
 //     // $SID = &$_REQUEST["var1"];
@@ -38,4 +42,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 //     http_status_code(400);
 // }
 echo "I am in a spongebob world";
+echo "This, is, Sponge, Bob";
+echo $name;
+
 ?>
