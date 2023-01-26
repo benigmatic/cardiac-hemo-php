@@ -19,9 +19,9 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 
 // echo 'updated';
 
-$name = $_POST['FirstName'];
-$sid = intval($_POST['SID']);
-$section = intval($_POST['ClassSection']);
+$name = $conn->real_escape_string($_POST['FirstName']);
+$sid = intval($conn->real_escape_string($_POST['SID']));
+$section = intval($conn->real_escape_string($_POST['ClassSection']));
 
 $stmt = $conn->prepare("INSERT INTO students (FirstName, SID, ClassSection) VALUES (?, ?, ?)");
 $stmt->bind_param("sii", $name, $sid, $section);
