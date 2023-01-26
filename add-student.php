@@ -14,7 +14,8 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-// Sanitizes input to prevent SQL injection 
+// Assign table input from POST request
+// real_escape_string sanitizes input to prevent SQL injection 
 $name = $conn->real_escape_string($_POST['FirstName']);
 $sid = intval($conn->real_escape_string($_POST['SID']));
 $section = intval($conn->real_escape_string($_POST['ClassSection']));
