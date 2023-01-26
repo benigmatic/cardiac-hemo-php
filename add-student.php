@@ -1,9 +1,12 @@
 <?php
 
+// adds a student (name, sid --can be omitted for autogeneration, section, --expandable) to the database
+
 // Sanitizes data received from POST request then inserts it into students table
 // Send POST requests with Unity : https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Post.html
 // where the WWWForm Fields are the affected columns in the database
 
+// Database authorization
 require "database/config.php";
 
 //Establish the connection
