@@ -1,14 +1,11 @@
 <?php
-/* What it does:
-    Receives the login information from Unity,
-    runs query to find the user with the same login SID, validates them 
-    returns 0 if the user doesn't exist, returns json with Section number (App Settings if needed) 
-    URL: https://hemo-cardiac.azurewebsites.net//login.php?var1=SID_value 
-        where SID_value is the SID sent from Unity
-    Source for PHP for variable parsing: https://stackoverflow.com/questions/44759249/unity-c-sharp-send-variable-to-php-server
-*/
+
+// Sanitizes data received from POST request then inserts it into students table
+// Send POST requests with Unity : https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Post.html
+// where the WWWForm Fields are the affected columns in the database
 
 require "database/config.php";
+
 //Establish the connection
 $conn = mysqli_init();
 mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
@@ -17,15 +14,16 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-// echo 'updated';
-
+// Sanitizes input to prevent SQL injection 
 $name = $conn->real_escape_string($_POST['FirstName']);
 $sid = intval($conn->real_escape_string($_POST['SID']));
 $section = intval($conn->real_escape_string($_POST['ClassSection']));
 
+// Prepared statement ensures matching data types
 $stmt = $conn->prepare("INSERT INTO students (FirstName, SID, ClassSection) VALUES (?, ?, ?)");
 $stmt->bind_param("sii", $name, $sid, $section);
 
+// return statements
 if ($stmt->execute())
 {
     echo "New record created successfully";
