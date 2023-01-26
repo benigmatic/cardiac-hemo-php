@@ -17,7 +17,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-echo 'updated';
+// echo 'updated';
 
 $name = $_POST['FirstName'];
 $sid = $_POST['SID'];
