@@ -12,7 +12,8 @@ require "database/config.php";
 //Establish the connection
 $conn = mysqli_init();
 mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
-if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
+if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL))
+{
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
@@ -23,11 +24,18 @@ $section = $POST['ClassSection'];
 
 $sql = "INSERT INTO students (FirstName, SID, ClassSection) VALUES ('$name', '$sid', '$section')";
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+if(isset($_POST['submit']))
+{
+    if ($conn->query($sql) === TRUE)
+    {
+        echo "New record created successfully";
+    } 
+    else 
+    {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
 }
+
 
 // Check that a new user has been sent
 // if (isset($_REQUEST["SID"])) {
