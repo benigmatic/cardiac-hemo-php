@@ -24,16 +24,14 @@ $section = $POST['ClassSection'];
 
 $sql = "INSERT INTO students (FirstName, SID, ClassSection) VALUES ('$name', '$sid', '$section')";
 
-if(isset($_POST['submit']))
+
+if ($conn->query($sql) === TRUE)
 {
-    if ($conn->query($sql) === TRUE)
-    {
-        echo "New record created successfully";
-    } 
-    else 
-    {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+    echo "New record created successfully";
+} 
+else 
+{
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 ?>
