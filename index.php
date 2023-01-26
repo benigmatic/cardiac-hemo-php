@@ -21,7 +21,7 @@ require "database/config.php";
      }
      else {
          while ($row = mysqli_fetch_assoc($res)) {
-             echo $row["SID"] . "," . $row["Password"] . "," . $row["FirstName"]."*";
+             echo $row["SID"] . "," . $row["Password"] . "," . $row["FirstName"]."*" . "<br>";
          }
          
      }
