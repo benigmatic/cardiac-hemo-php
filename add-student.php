@@ -23,7 +23,7 @@ $name = $_POST['FirstName'];
 $sid = $_POST['SID'];
 $section = $POST['ClassSection'];
 
-$sql = "INSERT INTO students (FirstName, SID, ClassSection) VALUES ($name, $sid, $section)";
+$sql = "INSERT INTO students (FirstName, SID, ClassSection) VALUES ('$name', '$sid', '$section')";
 
 
 if ($conn->query($sql) === TRUE)
