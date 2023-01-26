@@ -24,7 +24,7 @@ $timespent = intval($conn->real_escape_string($_POST['TimeSpent']));
 $answer = $conn->real_escape_string($_POST['Answer']);
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO Flashcard_attempts (SID, CID, Grade, TimeSpent, Answer) VALUES (?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO Cardiac_case_attempts (SID, CID, Grade, TimeSpent, Answer) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("siiis", $sid, $cid, $grade, $timespent, $answer);
 
 // return statements
