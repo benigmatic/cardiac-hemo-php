@@ -25,7 +25,7 @@ if (isset($_REQUEST["var1"])) {
     */
     $SID = &$_REQUEST["var1"];
     //$SID = real_escape_string($conn, &$_REQUEST["var1"]);
-    $name = $_POST['FirstName']);
+    $name = $_POST['FirstName'];
     // Run query to select a student from the database
     $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
     $res = mysqli_query($conn, $query); 
