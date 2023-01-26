@@ -21,7 +21,7 @@ $name = $_POST['FirstName'];
 $sid = $_POST['SID'];
 $section = $POST['ClassSection'];
 
-$sql = "INSERT INTO Students (name, sid, section)";
+$sql = "INSERT INTO students (name, sid, section)";
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
