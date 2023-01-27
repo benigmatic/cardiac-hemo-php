@@ -39,9 +39,12 @@ if (isset($_REQUEST["var1"])) {
         $Name = &$row["FirstName"];
         $Section = &$row["ClassSection"];
         //Creates a json file to return
-        $Login_res = new stdClass();
-        $Login_res->objects = [$SID, $Name,$Section ];
-        echo json_encode($Login_res);
+        $res_array = array(
+            "SID" => $SID,
+            "Name" => $Name,
+            "Section" => $Section
+        );
+        echo json_encode($res_array);
     }
 } else {
     http_status_code(400);
