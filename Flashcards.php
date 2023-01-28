@@ -18,6 +18,8 @@ $Section = &$_REQUEST["var1"];
 echo $Section . "<BR>";
 $query = "SELECT * FROM students WHERE Section LIKE '$Section'";
 echo $query;
+$result = mysqli_query($conn, $query);
+echo $result;
 if ($result = mysqli_query($conn, $query)) {
 
     $newArr = array();
