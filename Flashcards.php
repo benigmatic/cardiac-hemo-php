@@ -16,19 +16,8 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // Get login Section number from Unity
 $Section = &$_REQUEST["var1"];
 echo $Section . "<BR>";
-$query = "SELECT * FROM flashcards WHERE Section LIKE '$Section'";
-echo $query;
-$result = mysqli_query($conn, $query);
-echo $result;
-if ($result = mysqli_query($conn, $query)) {
+$query = "SELECT * FROM flashcards WHERE Section LIKE '1'";
+$res = mysqli_query($conn, $query); 
+echo $res;
 
-    $newArr = array();
-    /* fetch associative array */
-    while ($db_field = mysqli_fetch_assoc($result)) {
-        $newArr[] = $db_field;
-    }
-    echo json_encode($newArr); // get all products in json format.    
-} else {
-    echo "Error";
-}
 ?>
