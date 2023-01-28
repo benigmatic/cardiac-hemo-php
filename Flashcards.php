@@ -13,23 +13,18 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-// Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
-if (isset($_REQUEST["var1"])) {
+// Get login Section number from Unity
+$Section = (isset($_GET['var1']) ? $_GET['var1'] : null);
+$query = "SELECT * FROM `students` WHERE name LIKE '%$Section%'";
+if ($result = mysqli_query($conn, $query)) {
 
-    $Section =(int)$conn->real_escape_string($_REQUEST["var1"]);
-    echo "Section: " . $Section . "  \n";
-    //$stmt = $conn->prepare("SELECT * from students WHERE Section=?");
-    //$stmt->bind_param("i", $Section);
-    $query = "SELECT * from students WHERE Section=$Section";
-    $res = mysqli_query($conn, $query); 
-
-// return statements
-    //$res = $stmt->execute();
-    echo $res;
-
-// Close connection
-mysqli_close($conn);
-
-    
+    $newArr = array();
+    /* fetch associative array */
+    while ($db_field = mysqli_fetch_assoc($result)) {
+        $newArr[] = $db_field;
+    }
+    echo json_encode($newArr); // get all products in json format.    
+} else {
+    echo "Error";
 }
 ?>
