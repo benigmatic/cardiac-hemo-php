@@ -34,7 +34,7 @@ if (isset($_REQUEST["var1"])) {
             $res_array[] = $object_array;
         }
         echo "<BR>";
-        echo $res_array;
+        echo json_encode($res_array);
     }
 } else {
     http_status_code(400);
