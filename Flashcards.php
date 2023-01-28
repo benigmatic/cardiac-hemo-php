@@ -18,11 +18,13 @@ if (isset($_REQUEST["var1"])) {
 
     $Section = $conn->real_escape_string($_REQUEST["var1"]);
     echo "Section: " . $Section . "  \n";
-    $stmt = $conn->prepare("SELECT * from students WHERE Section=?");
-    $stmt->bind_param("i", $Section);
+    //$stmt = $conn->prepare("SELECT * from students WHERE Section=?");
+    //$stmt->bind_param("i", $Section);
+    $query = "SELECT * from students WHERE Section='$Section'";
+    $res = mysqli_query($conn, $query); 
 
 // return statements
-    $res = $stmt->execute();
+    //$res = $stmt->execute();
     echo $res;
 
 // Close connection
