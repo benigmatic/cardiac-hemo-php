@@ -13,7 +13,6 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 if (isset($_REQUEST["var1"])) {
-
     $Section = &$_REQUEST["var1"];
     $query = "SELECT Prompt, Answer FROM flashcards WHERE Section='$Section'";
     $res = mysqli_query($conn, $query); 
@@ -30,10 +29,9 @@ if (isset($_REQUEST["var1"])) {
             "Prompt" => $Prompt,
             "Answer" => $Answer
         );
-        echo json_encode($object_array);
             $res_array[] = $object_array;
         }
-        echo "<BR>";
+        //returns an Array of JSONs
         echo json_encode($res_array);
     }
 } else {
