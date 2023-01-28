@@ -21,15 +21,17 @@ if (isset($_REQUEST["var1"])) {
         echo "No Flashcards found";
     }
     else {
-        $row = mysqli_fetch_assoc($res);
+        while ($row = mysqli_fetch_assoc($res)) {
         $Prompt = &$row["Prompt"];
         $Answer = &$row["Answer"];
         //Creates a json file to return
-        $res_array = array(
+        $object_array = array(
             "Prompt" => $Prompt,
             "Answer" => $Answer
         );
-        echo json_encode($res_array);
+        echo json_encode($object_array);
+        }
+        
     }
 } else {
     http_status_code(400);
