@@ -12,16 +12,27 @@ mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
 if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
+if (isset($_REQUEST["var1"])) {
 
-// Get login Section number from Unity
-$Section = &$_REQUEST["var1"];
-echo $Section . "<BR>";
-$query = "SELECT * FROM flashcards WHERE Section='$Section'";
-$res = mysqli_query($conn, $query); 
-if (mysqli_num_rows($res) <= 0) {
-    echo "No Students found in the table";
+    $Section = &$_REQUEST["var1"];
+    $query = "SELECT Prompt, Answer FROM flashcards WHERE Section='$Section'";
+    $res = mysqli_query($conn, $query); 
+    if (mysqli_num_rows($res) <= 0) {
+        echo "No Flashcards found";
+    }
+    else {
+        $row = mysqli_fetch_assoc($res);
+        $Prompt = &$row["Prompt"];
+        $Answer = &$row["Answer"];
+        //Creates a json file to return
+        $res_array = array(
+            "Prompt" => $Prompt,
+            "Answer" => $Answer
+        );
+        echo json_encode($res_array);
+    }
 } else {
-    $row = mysqli_fetch_assoc($res);
-    echo $res;
+    http_status_code(400);
 }
+
 ?>
