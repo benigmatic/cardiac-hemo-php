@@ -16,7 +16,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // Get login Section number from Unity
 $Section = &$_REQUEST["var1"];
 echo $Section . "<BR>";
-$query = "SELECT * FROM students WHERE name LIKE '$Section'";
+$query = "SELECT * FROM students WHERE Section LIKE '$Section'";
 echo $query;
 if ($result = mysqli_query($conn, $query)) {
 
