@@ -2,7 +2,7 @@
 /* What it does:
     Receives the Section Number from Unity app,
     Returns a cases list for this section
-    URL: https://hemo-cardiac.azurewebsites.net//Flashcards.php?var1=Section_number        
+    URL: https://hemo-cardiac.azurewebsites.net//Cases.php?var1=Section_number        
 */
 
 require "database/config.php";
