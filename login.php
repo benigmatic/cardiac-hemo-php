@@ -34,7 +34,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
         echo "No Students found in the table";
     } else {
         $row = mysqli_fetch_assoc($res);
-        $DBPass = & $row["Password"];
+        $DBPass = &$row["Password"];
         echo $DBPass . "<BR>";
         $valid = password_verify($usersPassword, $DBPass);
         if ($valid) {

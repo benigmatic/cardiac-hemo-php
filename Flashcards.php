@@ -2,7 +2,7 @@
 /* What it does:
     Receives the Section Number from Unity,
     Returns a flashcards list for this section
-    URL: https://hemo-cardiac.azurewebsites.net//Flashcards.php?var1=Section_number        
+    URL: https://hemo-cardiac.azurewebsites.net//flashcards.php?var1=Section_number        
 */
 
 require "database/config.php";
