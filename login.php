@@ -3,7 +3,7 @@
     Receives the login information from Unity,
     runs query to find the user with the same login SID, validates them 
     returns 0 if the user doesn't exist, returns json with Section number (App Settings if needed) 
-    URL: https://hemo-cardiac.azurewebsites.net//login.php?var1=SID_value 
+    URL: https://hemo-cardiac.azurewebsites.net//login.php?var1=SID_value&var2=Password 
         where SID_value is the SID sent from Unity
     Source for PHP for variable parsing: https://stackoverflow.com/questions/44759249/unity-c-sharp-send-variable-to-php-server
 */
@@ -24,28 +24,41 @@ if (isset($_REQUEST["var1"])) {
     $SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
     */
     $SID = &$_REQUEST["var1"];
-    $name = $_POST['FirstName'];
+    $usersPassword = & $_REQUEST["var2"];
     
     //$SID = $conn->real_escape_string(&$_REQUEST["var1"]);
-    
-    // Run query to select a student from the database
-    $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID'";
+    //Checks if the password matches with the record in the database
+    $query = "SELECT Password FROM students WHERE SID = '$SID'";
     $res = mysqli_query($conn, $query); 
     if (mysqli_num_rows($res) <= 0) {
         echo "No Students found in the table";
-    }
-    else {
+    } else {
         $row = mysqli_fetch_assoc($res);
-        $Name = &$row["FirstName"];
-        $Section = &$row["ClassSection"];
-        //Creates a json file to return
-        $res_array = array(
-            "SID" => $SID,
-            "Name" => $Name,
-            "Section" => $Section
-        );
-        echo json_encode($res_array);
+        $DBPass = & $row["Password"];
+        $valid = password_verify($usersPassword, $DBPass);
+        if ($valid) {
+            //Log the user in and return the object with values
+            $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID' AND Password='$usersPassword'";
+            $res = mysqli_query($conn, $query);
+            if (mysqli_num_rows($res) <= 0) {
+                echo "No Students found in the table";
+            } else {
+                $row = mysqli_fetch_assoc($res);
+                $Name = & $row["FirstName"];
+                $Section = & $row["ClassSection"];
+                //Creates a json file to return
+                $res_array = array(
+                    "SID" => $SID,
+                    "Name" => $Name,
+                    "Section" => $Section
+                );
+                echo json_encode($res_array);
+            }
+        } else {
+            echo "Invalid password";
+        }
     }
+    
 } else {
     http_status_code(400);
 }
