@@ -15,13 +15,16 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 if (isset($_REQUEST["var1"])) {
     $Section = &$_REQUEST["var1"];
     $query = "SELECT Description, Rhythm, AnswerDescription, A,B,C FROM cases WHERE Section='$Section'";
-    $res = mysqli_query($conn, $query); 
+    $stmt = $conn->prepare('SELECT Description, Rhythm, AnswerDescription, A,B,C FROM cases WHERE Section = ?');
+    $stmt->bind_param('s', $SID);
+    $stmt->execute();
+    $res = $stmt->get_result();
     if (mysqli_num_rows($res) <= 0) {
-        echo "No Cases found";
+        die("No Cases found");
     }
     else {
         $res_array = array();
-        while ($row = mysqli_fetch_assoc($res)) {
+        while ($row = $res->fetch_assoc()) {
         //Creates a json file to return
         $object_array = array(
             "Description" => &$row["Description"],

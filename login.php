@@ -18,15 +18,8 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
-
-    //TODO: Test this: Prevents Injection
-    /*
-    $SID = mysql_real_escape_string($_REQUEST["var1"], $conn);
-    */
     $SID = &$_REQUEST["var1"];
     $usersPassword = &$_REQUEST["var2"];
-    //$SID = $conn->real_escape_string(&$_REQUEST["var1"]);
-    //Grabs hashed password from the DB
     $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
     $stmt->bind_param('s', $SID);
     $stmt->execute();
