@@ -37,7 +37,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
         $DBPass = &$row["Password"];
         echo $DBPass . "<BR>";
         $valid = strcmp($usersPassword, $DBPass);
-        if ($valid) {
+        if ($usersPassword == $DBPass) {
             //Log the user in and return the object with values
             echo "Valid <BR>";
             $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID' AND Password='$usersPassword'";
@@ -57,6 +57,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
                 echo json_encode($res_array);
             }
         } else {
+            echo $valid;
             die("Invalid password");
         }
     }
