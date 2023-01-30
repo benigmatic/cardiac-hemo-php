@@ -27,12 +27,14 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     $usersPassword = &$_REQUEST["var2"];
     //$SID = $conn->real_escape_string(&$_REQUEST["var1"]);
     //Grabs hashed password from the DB
-    $query = "SELECT Password FROM students WHERE SID = '$SID'";
-    $res = mysqli_query($conn, $query); 
+    $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
+    $stmt->bind_param('s', $SID);
+    $stmt->execute();
+    $res = $stmt->get_result();
     if (mysqli_num_rows($res) <= 0) {
-        echo "No Students found in the table";
+        die("No Students found in the table");
     } else {
-        $row = mysqli_fetch_assoc($res);
+        $row = $res->fetch_assoc();
         $DBPass = &$row["Password"];
         //Compares the user Password with the DB
         if ($usersPassword == $DBPass) {
