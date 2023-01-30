@@ -25,7 +25,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     */
     $SID = &$_REQUEST["var1"];
     $usersPassword = &$_REQUEST["var2"];
-    echo $usersPassword;
+    echo $usersPassword . "<BR>";
     //$SID = $conn->real_escape_string(&$_REQUEST["var1"]);
     //Checks if the password matches with the record in the database
     $query = "SELECT Password FROM students WHERE SID = '$SID'";
@@ -36,14 +36,14 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
         $row = mysqli_fetch_assoc($res);
         $DBPass = &$row["Password"];
         echo $DBPass . "<BR>";
-        $valid = password_verify($usersPassword, $DBPass);
+        $valid = strcmp($usersPassword, $DBPass);
         if ($valid) {
             //Log the user in and return the object with values
             echo "Valid <BR>";
             $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID' AND Password='$usersPassword'";
             $res = mysqli_query($conn, $query);
             if (mysqli_num_rows($res) <= 0) {
-                echo "No Students found in the table";
+                die("No Students found in the table");
             } else {
                 $row = mysqli_fetch_assoc($res);
                 $Name = & $row["FirstName"];
@@ -57,7 +57,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
                 echo json_encode($res_array);
             }
         } else {
-            echo "Invalid password";
+            die("Invalid password");
         }
     }
     
