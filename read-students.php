@@ -16,15 +16,14 @@ $result = $sth->get_result();
 
 if ($result->num_rows > 0)
 {
-//     header('Content-Type: application/json');
-//     $array = array();
-//     while ($row = $result->fetch_assoc()) {
-//         $array[] = $row;
-//     }
-// 	echo json_encode($array);
-    echo 'killer queen';
+    header('Content-Type: application/json');
+    $array = array();
+    while ($row = $result->fetch_assoc())
+    {
+        $array[] = $row;
+    }
+	echo json_encode($array);
 }
-
 
 ?>
 
