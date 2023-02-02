@@ -2,7 +2,7 @@
 /* What it does:
     Receives the Section Number from Unity app,
     Returns a cases list for this section
-    URL: https://hemo-cardiac.azurewebsites.net//cases.php?var1=Section_number        
+    URL: https://hemo-cardiac.azurewebsites.net//cases.php?var1=Section_number
 */
 
 require "database/config.php";
@@ -11,7 +11,7 @@ $conn = mysqli_init();
 mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
 if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
     die('Failed to connect to MySQL: '.mysqli_connect_error());
-} 
+}
 if (isset($_REQUEST["var1"])) {
     $Section = &$_REQUEST["var1"];
     $stmt = $conn->prepare('SELECT Description, Rhythm, AnswerDescription, A,B,C FROM cases WHERE Section = ?');
@@ -35,8 +35,9 @@ if (isset($_REQUEST["var1"])) {
         );
             $res_array[] = $object_array;
         }
+        $case_array = array("Cases" => $res_array);
         //returns an Array of JSONs
-        echo json_encode($res_array);
+        echo json_encode($case_array);
     }
 } else {
     http_status_code(400);
