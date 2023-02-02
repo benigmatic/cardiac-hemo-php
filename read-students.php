@@ -22,7 +22,8 @@ if ($result->num_rows > 0)
     {
         $array[] = $row;
     }
-	echo json_encode($array);
+    $data = (object) ['data' => $array];
+    echo json_encode($array);
 }
 
 ?>
