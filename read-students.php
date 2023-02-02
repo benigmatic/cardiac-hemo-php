@@ -14,16 +14,17 @@ $sth->execute();
 
 $result = $sth->get_result();
 
-// if (count($result) > 0)
-// {
+if (count($result) > 0)
+{
 //     header('Content-Type: application/json');
 //     $array = array();
 //     while ($row = $result->fetch_assoc()) {
 //         $array[] = $row;
 //     }
 // 	echo json_encode($array);
-// }
-// echo 'killer queen';
+    echo 'killer queen';
+}
+
 
 ?>
 
