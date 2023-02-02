@@ -14,7 +14,7 @@ $sth->execute();
 
 $result = $sth->get_result();
 
-if (count($result) > 0)
+if ($result->num_rows > 0)
 {
 //     header('Content-Type: application/json');
 //     $array = array();
