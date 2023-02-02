@@ -9,15 +9,20 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-$sth = $conn->query('SELECT SID,FirstName,LastName FROM students');
+$sth = $conn->prepare('SELECT SID,FirstName,LastName FROM students');
+$sth->execute();
 
 $result = $sth->get_result();
 
-// if (count($result) > 0)
-// {
-// 	header('Content-Type: application/json');
-// 	echo json_encode($result);
-// }
+if (count($result) > 0)
+{
+    header('Content-Type: application/json');
+    $array = array();
+    while ($row = $result->fetch_assoc()) {
+        $array[] = $row;
+    }
+	echo json_encode($result);
+}
 echo 'killer queen';
 
 ?>
