@@ -30,7 +30,7 @@ if ($result->num_rows > 0)
     }
     // Wraps the array of objects as a JSON property with name 'items'
     // $data = (object) ['items' => $array];
-    echo json_encode($data);
+    echo json_encode($array);
 }
 
 /////////////////////////////////////////////////////////////////////// Unity Code ////////////////////////////////////////////////////////////////////////////////////
