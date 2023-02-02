@@ -12,7 +12,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $sth = $conn->prepare('SELECT SID,FirstName,LastName FROM students');
 $sth->execute();
 
-// $result = $sth->get_result();
+$result = $sth->get_result();
 
 // if (count($result) > 0)
 // {
