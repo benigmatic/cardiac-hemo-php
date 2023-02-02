@@ -22,7 +22,7 @@ if ($result->num_rows > 0)
     {
         $array[] = $row;
     }
-    $data = (object) ['data' => $array];
+    $data = (object) ['items' => $array];
     echo json_encode($array);
 }
 
