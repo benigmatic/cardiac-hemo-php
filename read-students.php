@@ -21,7 +21,7 @@ if (count($result) > 0)
     while ($row = $result->fetch_assoc()) {
         $array[] = $row;
     }
-	echo json_encode($result);
+	echo json_encode($array);
 }
 echo 'killer queen';
 
