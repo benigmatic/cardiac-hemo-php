@@ -3,7 +3,7 @@
 // alternative retrieval script
 
 // Receives: nothing
-// Sends: JSON object with single parameter
+// Sends: JSON object
 
 require "database/config.php";
 
@@ -28,8 +28,7 @@ if ($result->num_rows > 0)
         $array[] = $row;
         // I will assume for now that this captures class variables like a Hemo Attempt
     }
-    // Wraps the array of objects as a JSON property with name 'items'
-    // $data = (object) ['items' => $array];
+
     echo json_encode($array);
 }
 
@@ -59,7 +58,7 @@ public class ReadStudents : MonoBehaviour
             }
             else
             {
-                // 'items' must match the property name of the JSON object sent by server
+                // 'items' must match name of StudentData[] in DataContainer
                 DataContainer array = JsonUtility.FromJson<DataContainer>("{\"items\":" + www.downloadHandler.text + "}");
 
                 foreach (StudentData entry in array.items)
