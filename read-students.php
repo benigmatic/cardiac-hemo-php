@@ -12,18 +12,18 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $sth = $conn->prepare('SELECT SID,FirstName,LastName FROM students');
 $sth->execute();
 
-$result = $sth->get_result();
+// $result = $sth->get_result();
 
-if (count($result) > 0)
-{
-    header('Content-Type: application/json');
-    $array = array();
-    while ($row = $result->fetch_assoc()) {
-        $array[] = $row;
-    }
-	echo json_encode($array);
-}
-echo 'killer queen';
+// if (count($result) > 0)
+// {
+//     header('Content-Type: application/json');
+//     $array = array();
+//     while ($row = $result->fetch_assoc()) {
+//         $array[] = $row;
+//     }
+// 	echo json_encode($array);
+// }
+// echo 'killer queen';
 
 ?>
 
