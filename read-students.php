@@ -9,8 +9,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-$sth = $conn->query('SELECT SID,FirstName,LastName FROM Students');
-$sth->setFetchMode(PDO::FETCH_ASSOC);
+$sth = $conn->query('SELECT SID,FirstName,LastName FROM students');
 
 $result = $sth->fetchAll();
 
