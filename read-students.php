@@ -29,7 +29,7 @@ if ($result->num_rows > 0)
         // I will assume for now that this captures class variables like a Hemo Attempt
     }
     // Wraps the array of objects as a JSON property with name 'items'
-    $data = (object) ['items' => $array];
+    // $data = (object) ['items' => $array];
     echo json_encode($data);
 }
 
