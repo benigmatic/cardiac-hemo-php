@@ -17,7 +17,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // real_escape_string sanitizes input to prevent SQL injection 
 $aid = intval($conn->real_escape_string($_POST['AID']));
 $name = $conn->real_escape_string($_POST['Name']);
-$time = intval($conn->real_escape_string($_POST['Time']));
+$time = intval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = intval($conn->real_escape_string($_POST['Completed']));
 $sid1 = intval($conn->real_escape_string($_POST['SID1']));
 $sid2 = intval($conn->real_escape_string($_POST['SID2']));
