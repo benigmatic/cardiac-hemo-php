@@ -16,7 +16,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 echo "checkmark1";
 // Assign table input from POST request
 // real_escape_string sanitizes input to prevent SQL injection 
-$name = $conn->real_escape_string($_POST['Name']);
+$name = $conn->real_escape_string($_POST['Name']);.aert$ Shuu; ;
 echo "checkmark5";
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 echo "checkmark6";
