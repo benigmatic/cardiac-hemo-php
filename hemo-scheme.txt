@@ -1,0 +1,12 @@
+
+
+
+         Game Start                Question is answered     Game Complete
+          ┌────────────────────┐    ┌───────────────────┐    ┌───────────────────┐
+          │                    │    │                   │    │                   │
+          │ Create Attempt     │    │ Check Hints       │    │ Update Attempt    │
+          │ -Store AID in game │    │ Create Answer     │    │                   │
+          │                    │    │                   │    │                   │
+          │                    │    │                   │    │                   │
+          │                    │    │                   │    │                   │
+          └────────────────────┘    └───────────────────┘    └───────────────────┘
