@@ -29,7 +29,7 @@ $sid5 = intval($conn->real_escape_string($_POST['SID5']));
 $stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?)");
 // $stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, Time, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 echo "Before statment";
-$stmt->bind_param("siiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $sid4, $sid5);
+$stmt->bind_param("siiiii", $name, $sid1, $sid2, $sid3, $sid4, $sid5);
 echo "After statement";
 
 // return statements
