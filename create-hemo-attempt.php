@@ -36,7 +36,7 @@ if ($stmt->execute())
 } 
 else 
 {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $stmt->err . "<br>" . $conn->error;
 }
 
 ?>
