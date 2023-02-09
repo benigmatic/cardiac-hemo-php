@@ -1,12 +1,11 @@
 
+  Game Start                Question is answered     Game Complete
+   ┌────────────────────┐    ┌───────────────────┐    ┌───────────────────┐
+   │                    │    │                   │    │                   │
+   │ Create Attempt     │    │ Check Hints       │    │ Update Attempt    │
+   │ -Store AID in game │    │ Create Answer     │    │                   │
+   │ -Add AID to each   │    │                   │    │                   │
+   │  student           │    │                   │    │                   │
+   │                    │    │                   │    │                   │
+   └────────────────────┘    └───────────────────┘    └───────────────────┘
 
-
-         Game Start                Question is answered     Game Complete
-          ┌────────────────────┐    ┌───────────────────┐    ┌───────────────────┐
-          │                    │    │                   │    │                   │
-          │ Create Attempt     │    │ Check Hints       │    │ Update Attempt    │
-          │ -Store AID in game │    │ Create Answer     │    │                   │
-          │                    │    │                   │    │                   │
-          │                    │    │                   │    │                   │
-          │                    │    │                   │    │                   │
-          └────────────────────┘    └───────────────────┘    └───────────────────┘
