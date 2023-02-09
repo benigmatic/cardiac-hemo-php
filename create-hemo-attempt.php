@@ -15,7 +15,6 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 
 // Assign table input from POST request
 // real_escape_string sanitizes input to prevent SQL injection 
-$aid = intval($conn->real_escape_string($_POST['AID']));
 $name = $conn->real_escape_string($_POST['Name']);
 $time = intval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = intval($conn->real_escape_string($_POST['Completed']));
