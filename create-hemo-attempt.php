@@ -27,8 +27,9 @@ $sid5 = intval($conn->real_escape_string($_POST['SID5']));
 
 // Prepared statement ensures matching data types
 $stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, Time, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+echo "Before statment";
 $stmt->bind_param("siiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $sid4, $sid5);
-echo "checkmark10";
+echo "After statement";
 
 // return statements
 if ($stmt->execute())
