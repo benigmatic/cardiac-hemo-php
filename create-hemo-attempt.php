@@ -18,6 +18,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $name = $conn->real_escape_string($_POST['Name']);
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 // $completed = intval($conn->real_escape_string($_POST['Completed']));
+$completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 $sid1 = intval($conn->real_escape_string($_POST['SID1']));
 $sid2 = intval($conn->real_escape_string($_POST['SID2']));
 $sid3 = intval($conn->real_escape_string($_POST['SID3']));
@@ -25,10 +26,10 @@ $sid4 = intval($conn->real_escape_string($_POST['SID4']));
 $sid5 = intval($conn->real_escape_string($_POST['SID5']));
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, TimeSpent, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, TimeSpent, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 // $stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, Time, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 echo "Before statment";
-$stmt->bind_param("sdiiiii", $name, $time, $sid1, $sid2, $sid3, $sid4, $sid5);
+$stmt->bind_param("sdiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $sid4, $sid5);
 echo "After statement";
 
 // return statements
