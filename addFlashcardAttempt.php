@@ -18,14 +18,13 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $fid = intval($conn->real_escape_string($_POST['FID']));
 $sid = $conn->real_escape_string($_POST['SID']);
 $grade = intval($conn->real_escape_string($_POST['Grade']));
-// Would we want to possibly change time tracking to seconds counted instead of using Time type?
-// Or use two separate DateTime fields?
-$timespent = intval($conn->real_escape_string($_POST['TimeSpent']));
+// Can use string for time object. Need to make sure format is correct
+$timespent = $conn->real_escape_string($_POST['TimeSpent']);
 $confidence = $conn->real_escape_string($_POST['Confidence']);
 
 // Prepared statement ensures matching data types
 $stmt = $conn->prepare("INSERT INTO Flashcard_attempts (FID, SID, Grade, TimeSpent, Confidence) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("isiis", $fid, $sid, $grade, $timespent, $confidence);
+$stmt->bind_param("isiss", $fid, $sid, $grade, $timespent, $confidence);
 
 // return statements
 if ($stmt->execute())

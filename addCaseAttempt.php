@@ -18,14 +18,13 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $sid = $conn->real_escape_string($_POST['SID']);
 $cid = intval($conn->real_escape_string($_POST['CID']));
 $grade = intval($conn->real_escape_string($_POST['Grade']));
-// Would we want to possibly change time tracking to seconds counted instead of using Time type?
-// Or use two separate DateTime fields?
-$timespent = intval($conn->real_escape_string($_POST['TimeSpent']));
+// Can use string for time object. Need to make sure format is correct
+$timespent = $conn->real_escape_string($_POST['TimeSpent']);
 $answer = $conn->real_escape_string($_POST['Answer']);
 
 // Prepared statement ensures matching data types
 $stmt = $conn->prepare("INSERT INTO Cardiac_case_attempts (SID, CID, Grade, TimeSpent, Answer) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("siiis", $sid, $cid, $grade, $timespent, $answer);
+$stmt->bind_param("siiss", $sid, $cid, $grade, $timespent, $answer);
 
 // return statements
 if ($stmt->execute())
