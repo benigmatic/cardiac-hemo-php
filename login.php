@@ -43,7 +43,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
                 $LoggedIn = & $row["LoggedIn"]+1;
                 //Updates the LoggedIn value in the database
                 $stmt = $conn->prepare("UPDATE students SET LoggedIn = LoggedIn+ 1 WHERE SID='$SID' AND Password='$usersPassword' ");
-                $stmt->bind_param("i", $sid, $usersPassword);
+                $stmt->bind_param("is", $sid, $usersPassword);
                 if ($stmt->execute())
                 {
                     echo "New record created successfully";
