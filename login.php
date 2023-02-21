@@ -20,7 +20,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     $SID = &$_REQUEST["var1"];
     $usersPassword = &$_REQUEST["var2"];
     $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
-    $stmt->bind_param('s', $SID);
+    $stmt->bind_param('i', $SID);
     $stmt->execute();
     $res = $stmt->get_result();
     if (mysqli_num_rows($res) <= 0) {
@@ -29,6 +29,8 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
         $row = $res->fetch_assoc();
         $DBPass = &$row["Password"];
         //Compares the user Password with the DB
+    echo $usersPassword . "<br> ";
+    echo $DBPass . "<br> ";
         if ($usersPassword == $DBPass) {
             //Log the user in and return the object with values
             $query = "SELECT ClassSection, LoggedIn FROM students WHERE SID='$SID' AND Password='$usersPassword'";
@@ -56,7 +58,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
                 echo json_encode($res_array);
             }
         } else {
-            die("Invalid password");
+            echo("Invalid password");
         }
     }
 
