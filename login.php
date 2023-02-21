@@ -16,8 +16,10 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 }
 echo "Test 1";
+echo $_REQUEST["var1"];
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
-if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
+//if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
+if (isset($_REQUEST["var1"])) {
     $SID = &$_REQUEST["var1"];
     $usersPassword = &$_REQUEST["var2"];
     $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
@@ -62,7 +64,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     }
     
 } else {
-    echo ("weird");
+    echo ("  weird");
     //http_status_code(400);
 }
 ?>
