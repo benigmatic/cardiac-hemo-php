@@ -44,9 +44,9 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
                 $LoggedIn = $row["LoggedIn"]+1;
                 echo "LoggedIn: ".$LoggedIn. " <br>";
                 //Updates the LoggedIn value in the database
-                $stmt2 = $conn->prepare("UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID= ? AND Password= ? ");
-                $stmt2->bind_param("is", $sid, $usersPassword);
-                if ($stmt2->execute())
+                $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
+                
+                if (mysqli_query($conn, $query))
                 {
                     echo "New record created successfully";
                 } else
