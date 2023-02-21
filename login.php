@@ -16,7 +16,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 }
 
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
-//if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
+if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     $SID = &$_REQUEST["var1"];
     $usersPassword = &$_REQUEST["var2"];
     $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
@@ -29,8 +29,6 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
         $row = $res->fetch_assoc();
         $DBPass = &$row["Password"];
         //Compares the user Password with the DB
-    echo $usersPassword . "<br> ";
-    echo $DBPass . "<br> ";
         if ($usersPassword == $DBPass) {
             //Log the user in and return the object with values
             $query = "SELECT ClassSection, LoggedIn FROM students WHERE SID='$SID' AND Password='$usersPassword'";
@@ -40,16 +38,25 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
             } else {
                 $row = mysqli_fetch_assoc($res);
                 $Section = & $row["ClassSection"];
-                echo  $row["LoggedIn"];
                 $LoggedIn = $row["LoggedIn"]+1;
-                echo "LoggedIn: ".$LoggedIn. " <br>";
                 //Updates the LoggedIn value in the database
-                $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
+                /* $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
                 
                 if (mysqli_query($conn, $query))
                 {
                     echo "New record created successfully";
                 } else
+                {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                */
+                $stmt = $conn->prepare("UPDATE students SET LoggedIn=? WHERE SID=? AND Password=?");
+                $stmt->bind_param("iis", $LoggedIn, $sid, $usersPassword);
+                if ($stmt->execute())
+                {
+                    echo "New record created successfully";
+                }
+                else
                 {
                     echo "Error: " . $sql . "<br>" . $conn->error;
                 }
@@ -65,5 +72,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
             echo("Invalid password");
         }
     }
-
+} else {
+    http_status_code(400);
+}
 ?>
