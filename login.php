@@ -40,7 +40,8 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
                 $Section = & $row["ClassSection"];
                 $LoggedIn = $row["LoggedIn"]+1;
                 //Updates the LoggedIn value in the database
-                 $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
+                $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
+                mysqli_query($conn, $query);
                 //Creates a json file to return to Unity apps
                 $res_array = array(
                     "SID" => $SID,
