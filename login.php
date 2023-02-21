@@ -14,8 +14,8 @@ $conn = mysqli_init();
 mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
 if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
     die('Failed to connect to MySQL: '.mysqli_connect_error());
-} 
-
+}
+echo "Test 1";
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     $SID = &$_REQUEST["var1"];
@@ -62,6 +62,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     }
     
 } else {
-    http_status_code(400);
+    echo ("weird");
+    //http_status_code(400);
 }
 ?>
