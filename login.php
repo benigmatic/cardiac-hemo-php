@@ -44,11 +44,14 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
                 $LoggedIn = $row["LoggedIn"]+1;
                 echo "LoggedIn: ".$LoggedIn. " <br>";
                 //Updates the LoggedIn value in the database
-                $stmt = $conn->prepare("UPDATE students SET LoggedIn = LoggedIn + 1 WHERE SID= ? AND Password= ? ");
-                $stmt->bind_param("is", $sid, $usersPassword);
-                if ($stmt->execute())
+                $stmt2 = $conn->prepare("UPDATE students SET LoggedIn = LoggedIn + 1 WHERE SID= ? AND Password= ? ");
+                $stmt2->bind_param("is", $sid, $usersPassword);
+                if ($stmt2->execute())
                 {
                     echo "New record created successfully";
+                } else
+                {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
                 }
                 //Creates a json file to return to Unity apps
                 $res_array = array(
