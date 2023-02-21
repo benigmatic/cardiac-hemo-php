@@ -3,7 +3,7 @@
     Receives the login information from Unity,
     runs query to find the user with the same login SID, validates them 
     returns 0 if the user doesn't exist, returns json with Section number (App Settings if needed) 
-    URL: https://hemo-cardiac.azurewebsites.net//login.php?var1=SID_value&var2=Password 
+    URL: https://hemo-cardiac.azurewebsites.net/login.php?var1=SID_value&var2=Password 
         where SID_value is the SID sent from Unity
     Source for PHP for variable parsing: https://stackoverflow.com/questions/44759249/unity-c-sharp-send-variable-to-php-server
 */
@@ -32,19 +32,27 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
         //Compares the user Password with the DB
         if ($usersPassword == $DBPass) {
             //Log the user in and return the object with values
-            $query = "SELECT FirstName, ClassSection FROM students WHERE SID='$SID' AND Password='$usersPassword'";
+            $query = "SELECT ClassSection, LoggedIn FROM students WHERE SID='$SID' AND Password='$usersPassword'";
             $res = mysqli_query($conn, $query);
             if (mysqli_num_rows($res) <= 0) {
                 die("No Students found in the table");
             } else {
                 $row = mysqli_fetch_assoc($res);
-                $Name = & $row["FirstName"];
+            
                 $Section = & $row["ClassSection"];
-                //Creates a json file to return
+                $LoggedIn = & $row["LoggedIn"]+1;
+                //Updates the LoggedIn value in the database
+                $stmt = $conn->prepare("UPDATE students SET LoggedIn = LoggedIn+ 1 WHERE SID='$SID' AND Password='$usersPassword' ");
+                $stmt->bind_param("i", $sid, $usersPassword);
+                if ($stmt->execute())
+                {
+                    echo "New record created successfully";
+                }
+                //Creates a json file to return to Unity apps
                 $res_array = array(
                     "SID" => $SID,
-                    "Name" => $Name,
-                    "Section" => $Section
+                    "Section" => $Section,
+                    "LoggedIn" => $LoggedIn
                 );
                 echo json_encode($res_array);
             }
