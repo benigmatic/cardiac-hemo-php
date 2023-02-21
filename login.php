@@ -42,7 +42,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
             
                 $Section = & $row["ClassSection"];
                 echo  $row["LoggedIn"];
-                $LoggedIn = & $row["LoggedIn"]+1;
+                $LoggedIn = $row["LoggedIn"]+1;
                 echo "LoggedIn: ".$LoggedIn. " <br>";
                 //Updates the LoggedIn value in the database
                 $stmt = $conn->prepare("UPDATE students SET LoggedIn = ? WHERE SID= ? AND Password= ? ");
