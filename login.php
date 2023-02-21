@@ -3,11 +3,10 @@
     Receives the login information from Unity,
     runs query to find the user with the same login SID, validates them 
     returns 0 if the user doesn't exist, returns json with Section number (App Settings if needed) 
-    URL: https://hemo-cardiac.azurewebsites.net/login.php?var1=SID_value&var2=Password 
+    URL: https://hemo-cardiac.azurewebsites.net//login.php?var1=SID_value&var2=Password 
         where SID_value is the SID sent from Unity
     Source for PHP for variable parsing: https://stackoverflow.com/questions/44759249/unity-c-sharp-send-variable-to-php-server
 */
-
 require "database/config.php";
 //Establish the connection
 $conn = mysqli_init();
@@ -15,11 +14,9 @@ mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
 if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 }
-echo "Test 1";
-echo $_REQUEST["var1"];
+
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 //if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
-if (isset($_REQUEST["var1"])) {
     $SID = &$_REQUEST["var1"];
     $usersPassword = &$_REQUEST["var2"];
     $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
@@ -62,9 +59,5 @@ if (isset($_REQUEST["var1"])) {
             die("Invalid password");
         }
     }
-    
-} else {
-    echo ("  weird");
-    //http_status_code(400);
-}
+
 ?>
