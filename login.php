@@ -41,11 +41,12 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
                 $row = mysqli_fetch_assoc($res);
             
                 $Section = & $row["ClassSection"];
+                echo  $row["LoggedIn"];
                 $LoggedIn = & $row["LoggedIn"]+1;
-                echo "Test3 <br>";
+                echo "LoggedIn: ".$LoggedIn. " <br>";
                 //Updates the LoggedIn value in the database
-                $stmt = $conn->prepare("UPDATE students SET LoggedIn = LoggedIn+ 1 WHERE SID= ? AND Password= ? ");
-                $stmt->bind_param("is", $sid, $usersPassword);
+                $stmt = $conn->prepare("UPDATE students SET LoggedIn = ? WHERE SID= ? AND Password= ? ");
+                $stmt->bind_param("sis",$LoggedIn, $sid, $usersPassword);
                 if ($stmt->execute())
                 {
                     echo "New record created successfully";
