@@ -40,26 +40,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
                 $Section = & $row["ClassSection"];
                 $LoggedIn = $row["LoggedIn"]+1;
                 //Updates the LoggedIn value in the database
-                /* $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
-                
-                if (mysqli_query($conn, $query))
-                {
-                    echo "New record created successfully";
-                } else
-                {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
-                */
-                $stmt = $conn->prepare("UPDATE students SET LoggedIn=? WHERE SID=? AND Password=?");
-                $stmt->bind_param("iis", $LoggedIn, $sid, $usersPassword);
-                if ($stmt->execute())
-                {
-                    echo "New record created successfully";
-                }
-                else
-                {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
+                 $query = "UPDATE students SET LoggedIn = '$LoggedIn' WHERE SID='$SID' AND Password= '$usersPassword'";
                 //Creates a json file to return to Unity apps
                 $res_array = array(
                     "SID" => $SID,
