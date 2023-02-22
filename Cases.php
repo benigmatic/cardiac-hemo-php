@@ -14,7 +14,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 }
 if (isset($_REQUEST["var1"])) {
     $Section = &$_REQUEST["var1"];
-    $stmt = $conn->prepare('SELECT Description, Rhythm, AnswerDescription, A,B,C FROM cases WHERE Section = ?');
+    $stmt = $conn->prepare('SELECT CID, Description, Rhythm, AnswerDescription, A,B,C FROM cases WHERE Section = ?');
     $stmt->bind_param('s', $Section);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -26,6 +26,7 @@ if (isset($_REQUEST["var1"])) {
         while ($row = $res->fetch_assoc()) {
         //Creates a json file to return
         $object_array = array(
+            "CID" => &$row["CID"],
             "Description" => &$row["Description"],
             "Rhythm" => &$row["Rhythm"],
             "AnswerDescription" => &$row["AnswerDescription"],
