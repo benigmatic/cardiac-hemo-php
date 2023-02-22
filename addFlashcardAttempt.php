@@ -21,10 +21,10 @@ $grade = intval($conn->real_escape_string($_POST['Grade']));
 // Can use string for time object. Need to make sure format is correct
 $timespent = $conn->real_escape_string($_POST['TimeSpent']);
 $confidence = $conn->real_escape_string($_POST['Confidence']);
-
+$login = intval($conn->real_escape_string($_POST['Login']));
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO Flashcard_attempts (FID, SID, Grade, TimeSpent, Confidence) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("isiss", $fid, $sid, $grade, $timespent, $confidence);
+$stmt = $conn->prepare("INSERT INTO Flashcard_attempts (FID, SID, Grade, TimeSpent, Confidence, Login) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("isissi", $fid, $sid, $grade, $timespent, $confidence, $login );
 
 // return statements
 if ($stmt->execute())

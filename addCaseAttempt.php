@@ -21,10 +21,11 @@ $grade = intval($conn->real_escape_string($_POST['Grade']));
 // Can use string for time object. Need to make sure format is correct
 $timespent = $conn->real_escape_string($_POST['TimeSpent']);
 $answer = $conn->real_escape_string($_POST['Answer']);
+$login = intval($conn->real_escape_string($_POST['Login']));
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO Cardiac_case_attempts (SID, CID, Grade, TimeSpent, Answer) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("siiss", $sid, $cid, $grade, $timespent, $answer);
+$stmt = $conn->prepare("INSERT INTO Cardiac_case_attempts (SID, CID, Grade, TimeSpent, Answer, Login) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("siissi", $sid, $cid, $grade, $timespent, $answer,$login );
 
 // return statements
 if ($stmt->execute())
