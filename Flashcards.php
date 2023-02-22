@@ -2,7 +2,7 @@
 /* What it does:
     Receives the Section Number from Unity,
     Returns a flashcards list for this section
-    URL: https://hemo-cardiac.azurewebsites.net//flashcards.php?var1=Section_number
+    URL: https://hemo-cardiac.azurewebsites.net/flashcards.php?var1=Section_number
 */
 
 require "database/config.php";
@@ -14,7 +14,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 }
 if (isset($_REQUEST["var1"])) {
     $Section = &$_REQUEST["var1"];
-    $stmt = $conn->prepare('SELECT Prompt, Answer FROM flashcards WHERE Section = ?');
+    $stmt = $conn->prepare('SELECT FID, Prompt, Answer FROM flashcards WHERE Section = ?');
     $stmt->bind_param('s', $Section);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -24,12 +24,11 @@ if (isset($_REQUEST["var1"])) {
     else {
         $res_array = array();
         while ($row = $res->fetch_assoc()) {
-        $Prompt = &$row["Prompt"];
-        $Answer = &$row["Answer"];
         //Creates a json file to return
         $object_array = array(
-            "Prompt" => $Prompt,
-            "Answer" => $Answer
+            "FID" => &$row["FID"],
+            "Prompt" =>&$row["Prompt"],
+            "Answer" =>&$row["Answer"]
         );
             $res_array[] = $object_array;
         }
