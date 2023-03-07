@@ -14,7 +14,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-$sth = $conn->prepare('SELECT SID,FirstName,LastName FROM students');
+$sth = $conn->prepare('SELECT SID, ClassSection, LoggedIn FROM students');
 $sth->execute();
 
 $result = $sth->get_result();

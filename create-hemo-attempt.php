@@ -34,7 +34,8 @@ $stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $si
 // return statements
 if ($stmt->execute())
 {
-    echo "New record created successfully";
+    $aid = mysqli_insert_id($conn);
+    echo "New record created successfully. The auto-generated ID value is: " . $aid;
 } 
 else 
 {
