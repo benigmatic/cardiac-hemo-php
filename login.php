@@ -120,6 +120,6 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
         }
     }
 } else {
-    http_status_code(400);
+    echo ("http_status_code(400);");
 }
 ?>
