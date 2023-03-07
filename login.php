@@ -75,7 +75,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     echo $SID ."<br>";
     $usersPassword = &$_REQUEST["var2"];
     echo $usersPassword ."<br>";
-    $query = "SELECT Password FROM students WHERE SID = '$SID";
+    $query = "SELECT Password FROM students WHERE SID = '$SID'";
     $res = mysqli_query($conn, $query);
     echo ($res);
     if (mysqli_num_rows($res) <= 0) {
