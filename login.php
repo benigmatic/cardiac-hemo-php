@@ -72,9 +72,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     $SID = &$_REQUEST["var1"];
-    echo $SID ."<br>";
     $usersPassword = &$_REQUEST["var2"];
-    echo $usersPassword ."<br>";
     $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
     $stmt->bind_param('s', $SID);
     $stmt->execute();
@@ -84,9 +82,7 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     } else {
         $row = $res->fetch_assoc();
         $DBPass = &$row["Password"];
-        //Compares the user Password with the DB
-        echo ($usersPassword == $DBPass);
-        
+        //Compares the user Password with the DB        
         if ($usersPassword == $DBPass) {
             //Log the user in and return the object with values
             $query = "SELECT ClassSection, LoggedIn FROM students WHERE SID='$SID' AND Password='$usersPassword'";
@@ -113,6 +109,6 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
         }
     }
 } else {
-    echo ("Here 1 <br>");
+    http_status_code(400);
 }
 
