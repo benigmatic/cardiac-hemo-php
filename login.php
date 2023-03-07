@@ -75,9 +75,10 @@ if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     echo $SID ."<br>";
     $usersPassword = &$_REQUEST["var2"];
     echo $usersPassword ."<br>";
-    $query = "SELECT Password FROM students WHERE SID = '$SID'";
-    $res = mysqli_query($conn, $query);
-    echo ($res);
+    $stmt = $conn->prepare('SELECT Password FROM students WHERE SID = ?');
+    $stmt->bind_param('s', $SID);
+    $stmt->execute();
+    $res = $stmt->get_result();
     if (mysqli_num_rows($res) <= 0) {
         die("No Students found in the table");
     } else {
