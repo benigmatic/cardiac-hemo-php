@@ -81,9 +81,13 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // Get login SID from Unity, if there is no SID in the URL, the sript shows 400 error
 if (isset($_REQUEST["var1"]) && isset($_REQUEST["var2"])) {
     $SID = &$_REQUEST["var1"];
+    echo $SID;
     $usersPassword = &$_REQUEST["var2"];
+    echo $usersPassword;
     $query = "SELECT Password FROM students WHERE SID = '$SID'";
+    echo $query;
     $res = mysqli_query($conn, $query);
+    echo $res;
     if (mysqli_num_rows($res) <= 0) {
         die("No Students found in the table");
     } else {
