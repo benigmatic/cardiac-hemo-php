@@ -17,6 +17,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // real_escape_string sanitizes input to prevent SQL injection
 $fid = intval($conn->real_escape_string($_POST['FID']));
 $sid = $conn->real_escape_string($_POST['SID']);
+echo $sid . "<br>" ; 
 $grade = intval($conn->real_escape_string($_POST['Grade']));
 // Can use string for time object. Need to make sure format is correct
 $timespent = $conn->real_escape_string($_POST['TimeSpent']);
