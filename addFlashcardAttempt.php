@@ -29,8 +29,7 @@ $stmt->bind_param("isissi", $fid, $sid, $grade, $timespent, $confidence, $login 
 // return statements
 if ($stmt->execute())
 {
-    echo "New record created successfully";
-    echo $sid;
+    echo "New record created successfully: " . $sid;
 }
 else
 {
