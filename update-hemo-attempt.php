@@ -21,8 +21,7 @@ $stmt->bind_param("dii", $time, $completed, $aid);
 // return statements
 if ($stmt->execute())
 {
-    $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated ID value is: " . $aid;
+    echo "Attempt " . $aid . " updated.";
 } 
 else 
 {
