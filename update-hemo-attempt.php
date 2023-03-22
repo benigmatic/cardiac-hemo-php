@@ -15,7 +15,7 @@ $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 
 
-$stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ? WHERE AID = ?)");
+$stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ? WHERE AID = ?");
 $stmt->bind_param("dii", $time, $completed, $aid);
 
 // return statements
