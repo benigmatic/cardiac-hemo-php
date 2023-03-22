@@ -17,9 +17,10 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $aid = intval($conn->real_escape_string($_POST['AID']));
 $puzzlename = $conn->real_escape_string($_POST['Name']);
 $time = intval($conn->real_escape_string($_POST['Time']));
+$completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleAttempt (AID, PuzzleName, TimeTakenToFinish) VALUES (?, ?, ?)");
-$stmt->bind_param("isi", $aid, $puzzlename, $time);
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzleAttempt (AID, PuzzleName, TimeTakenToFinish, Completed) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("isii", $aid, $puzzlename, $time, $completed);
 
 // return statements
 if ($stmt->execute())
