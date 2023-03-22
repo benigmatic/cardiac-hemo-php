@@ -15,20 +15,20 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 
 // Assign table input from POST request
 // real_escape_string sanitizes input to prevent SQL injection 
-$name = $conn->real_escape_string($_POST['Name']);
+
+$aid = intval($conn->real_escape_string($_POST['AID']));
+$sid = intval($conn->real_escape_string($_POST['SID']));
+$puzid = intval($conn->real_escape_string($_POST['PUZID']));
+$step = intval($conn->real_escape_string($_POST['StepNo']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
-// $completed = intval($conn->real_escape_string($_POST['Completed']));
-$completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
-$sid1 = intval($conn->real_escape_string($_POST['SID1']));
-$sid2 = intval($conn->real_escape_string($_POST['SID2']));
-$sid3 = intval($conn->real_escape_string($_POST['SID3']));
-$sid4 = intval($conn->real_escape_string($_POST['SID4']));
-$sid5 = intval($conn->real_escape_string($_POST['SID5']));
+$hint1 = (isset($_POST['Hint1']) && !empty($_POST['Hint1'])) ? $conn->real_escape_string($_POST['Hint1']) : 0;
+$hint2 = (isset($_POST['Hint2']) && !empty($_POST['Hint2'])) ? $conn->real_escape_string($_POST['Hint2']) : 0;
+$answer = $conn->real_escape_string($_POST['Answer']);
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, TimeSpent, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzleanswers (AID, SID, PUZID, PuzzleStep, Hint1, Hint2, TimeTaken, Answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-$stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $sid4, $sid5);
+$stmt->bind_param("iiiidiis", $aid, $sid, $puzid, $step, $time, $hint1, $hint2, $answer);
 
 
 // return statements
