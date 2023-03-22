@@ -19,7 +19,7 @@ $puzzlename = $conn->real_escape_string($_POST['Name']);
 $time = intval($conn->real_escape_string($_POST['Time']));
 $completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleAttempt (AID, PuzzleName, TimeTakenToFinish, Completed) VALUES (?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzleattempt (AID, PuzzleName, TimeTakenToFinish, Completed) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("isii", $aid, $puzzlename, $time, $completed);
 
 // return statements
