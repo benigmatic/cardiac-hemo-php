@@ -23,12 +23,13 @@ $step = intval($conn->real_escape_string($_POST['StepNo']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $hint1 = (isset($_POST['Hint1']) && !empty($_POST['Hint1'])) ? $conn->real_escape_string($_POST['Hint1']) : 0;
 $hint2 = (isset($_POST['Hint2']) && !empty($_POST['Hint2'])) ? $conn->real_escape_string($_POST['Hint2']) : 0;
+$correct = (isset($_POST['correct']) && !empty($_POST['correct'])) ? $conn->real_escape_string($_POST['correct']) : 0;
 $answer = $conn->real_escape_string($_POST['Answer']);
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleanswers (AID, SID, PUZID, PuzzleStep, Hint1, Hint2, TimeTaken, Answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzleanswers (AID, SID, PUZID, PuzzleStep, Hint1, Hint2, TimeTaken, Answer, Correct) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-$stmt->bind_param("iiiidiis", $aid, $sid, $puzid, $step, $time, $hint1, $hint2, $answer);
+$stmt->bind_param("iiiidiisi", $aid, $sid, $puzid, $step, $time, $hint1, $hint2, $answer, $correct);
 
 
 // return statements
