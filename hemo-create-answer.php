@@ -16,21 +16,14 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 // Assign table input from POST request
 // real_escape_string sanitizes input to prevent SQL injection 
 
-$aid = intval($conn->real_escape_string($_POST['AID']));
+$puzid = intval($conn->real_escape_string($_POST['PUZSTEPid']));
 $sid = intval($conn->real_escape_string($_POST['SID']));
-$puzid = intval($conn->real_escape_string($_POST['PUZID']));
-$step = intval($conn->real_escape_string($_POST['StepNo']));
-$time = floatval($conn->real_escape_string($_POST['TimeSpent']));
-$hint1 = (isset($_POST['Hint1']) && !empty($_POST['Hint1'])) ? $conn->real_escape_string($_POST['Hint1']) : 0;
-$hint2 = (isset($_POST['Hint2']) && !empty($_POST['Hint2'])) ? $conn->real_escape_string($_POST['Hint2']) : 0;
-$correct = (isset($_POST['correct']) && !empty($_POST['correct'])) ? $conn->real_escape_string($_POST['correct']) : 0;
 $answer = $conn->real_escape_string($_POST['Answer']);
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleanswers (AID, SID, PUZID, PuzzleStep, Hint1, Hint2, TimeTaken, Answer, Correct) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_answers (PUZSTEPid, SID, Answer) VALUES (?, ?, ?)");
 
-$stmt->bind_param("iiiidiisi", $aid, $sid, $puzid, $step, $time, $hint1, $hint2, $answer, $correct);
-
+$stmt->bind_param("iis", $puzid, $sid, $answer);
 
 // return statements
 if ($stmt->execute())
