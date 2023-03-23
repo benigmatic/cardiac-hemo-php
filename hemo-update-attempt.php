@@ -12,7 +12,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 echo "check1";
 $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
-$completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
+$completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0);
 echo "check2";
 $sid = intval($conn->real_escape_string($_POST['SID']));
 $num = intval($conn->real_escape_string($_POST['JoinNum']));
@@ -21,12 +21,8 @@ $joiner = 'SID' . $num;
 echo "check4";
 $stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ?, $joiner = ? WHERE GAMEid = ?");
 echo "check5";
-echo "check5";
-echo "check5";
-echo "check5";
 $stmt->bind_param("diii", $time, $completed, $sid, $aid);
-echo "Error: " . $stmt->err . "<br>" . $conn->error;
-
+echo "check6";
 // return statements
 if ($stmt->execute())
 {
