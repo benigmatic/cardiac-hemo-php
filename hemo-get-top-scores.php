@@ -15,7 +15,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 } 
 
 // get info of top 3 fastest completed attempts
-$sth = $conn->prepare('SELECT Name, TimeSpent, SID1, SID2, SID3, SID4, SID5 FROM drhemo_attempts WHERE Completed = 1 ORDER BY TimeSpent ASC LIMIT 3');
+$sth = $conn->prepare('SELECT TeamName, TimeSpent, SID1, SID2, SID3, SID4, SID5 FROM drhemo_attempts WHERE Completed = 1 ORDER BY TimeSpent ASC LIMIT 3');
 $sth->execute();
 
 $result = $sth->get_result();
