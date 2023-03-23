@@ -36,6 +36,9 @@ if ($stmt->execute())
 {
     $aid = mysqli_insert_id($conn);
     echo "New record created successfully. The auto-generated GAMEid value is: " . $aid;
+    
+    // returning generated code
+    echo json_encode($aid);
 } 
 else 
 {
