@@ -14,13 +14,15 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 } 
 
 // JSON from Unity
-$aid = intval($conn->real_escape_string($_POST['AID']));
-$puzzlename = $conn->real_escape_string($_POST['Name']);
-$time = intval($conn->real_escape_string($_POST['Time']));
+$aid = intval($conn->real_escape_string($_POST['GAMEid']));
+$puzzlename = $conn->real_escape_string($_POST['PuzzleName']);
+$puzzlestep = intval($conn->real_escape_string($_POST['PuzzleStep']));
+$hintstaken = intval($conn->real_escape_string($_POST['HintsTaken']));
+$time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 $completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleattempt (AID, PuzzleName, TimeTakenToFinish, Completed) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("isii", $aid, $puzzlename, $time, $completed);
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzleattempt (GameID, PuzzleName, PuzzleStep, HintsTaken, TimeTaken, Completed) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("isiidi", $aid, $puzzlename, $puzzlestep, $hintstaken, $time, $completed);
 
 // return statements
 if ($stmt->execute())
