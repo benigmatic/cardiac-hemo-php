@@ -24,7 +24,8 @@ $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 echo "check2";
 // Prepare the statement
 $stmt = $conn->prepare("SELECT PUZSTEPid FROM drhemo_puzzlesteps WHERE GAMEid = ? AND PuzzleName = ? AND PuzzleStep = ?");
-$stmt->bind_param("isi", $aid, $puzzlename, $puzzlestep);
+//$stmt->bind_param("isi", $aid, $puzzlename, $puzzlestep);
+$stmt->bind_param("isi", 1, 'Cafeteria', 1);
 echo "check3";
 // Execute the statement
 $stmt->execute();
@@ -36,8 +37,8 @@ if ($result->num_rows == 0)
   // If not, create a new PuzzleStep
     echo "check5";
   $stmt = $conn->prepare("INSERT INTO drhemo_puzzlesteps (GAMEid, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
-  // $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
-  $stmt->bind_param("isiid", 1, 'Cafeteria', 1, $hintstaken, $time);
+  $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
+  // $stmt->bind_param("isiid", 1, 'Cafeteria', 1, $hintstaken, $time);
     echo "check6";
   if($stmt->execute())
   {
