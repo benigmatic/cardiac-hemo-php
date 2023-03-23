@@ -24,7 +24,7 @@ $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 echo "check2";
 // Prepare the statement
 $stmt = $conn->prepare("SELECT PUZSTEPid FROM drhemo_puzzlesteps WHERE GAMEid = ? AND PuzzleName = ? AND PuzzleStep = ?");
-// $puzzlename = 'Library';
+$puzzlename = "Library";
 $stmt->bind_param("isi", $aid, $puzzlename, $puzzlestep);
 echo "check3";
 // Execute the statement
