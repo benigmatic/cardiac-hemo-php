@@ -17,6 +17,10 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $puzzlename = $conn->real_escape_string($_POST['PuzzleName']);
 $puzzlestep = intval($conn->real_escape_string($_POST['PuzzleStep']));
+
+// check if these already have an entry in the table
+
+
 $hintstaken = intval($conn->real_escape_string($_POST['HintsTaken']));
 $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 
