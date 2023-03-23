@@ -36,7 +36,8 @@ if ($result->num_rows == 0)
   // If not, create a new PuzzleStep
     echo "check5";
   $stmt = $conn->prepare("INSERT INTO drhemo_puzzlesteps (GAMEid, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
+  // $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
+  $stmt->bind_param("isiid", 1, 'Cafeteria', 1, $hintstaken, $time);
     echo "check6";
   if($stmt->execute())
   {
