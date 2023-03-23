@@ -29,7 +29,7 @@ $stmt->bind_param("iis", $puzid, $sid, $answer);
 if ($stmt->execute())
 {
     $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated ID value is: " . $aid;
+    echo "New record created successfully. The auto-generated ANSID value is: " . $aid;
 } 
 else 
 {
