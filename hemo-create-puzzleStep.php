@@ -20,7 +20,7 @@ $puzzlestep = intval($conn->real_escape_string($_POST['PuzzleStep']));
 $hintstaken = intval($conn->real_escape_string($_POST['HintsTaken']));
 $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleattempt (GameID, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzlesteps (GameID, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
 
 // return statements
