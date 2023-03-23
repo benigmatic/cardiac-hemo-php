@@ -27,7 +27,7 @@ $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
 if ($stmt->execute())
 {
     $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated ID value is: " . $aid;
+    echo "New record created successfully. The auto-generated PUZSTEPid value is: " . $aid;
 } 
 else 
 {
