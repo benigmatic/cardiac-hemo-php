@@ -15,8 +15,8 @@ $hint = intval($conn->real_escape_string($_POST['HintsTaken']));
 $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 
 $stmt = $conn->prepare("UPDATE drhemo_puzzlesteps SET TimeTaken = ?, HintsTaken = ? WHERE PUZSTEPid = ?");
-$hint = "3";
-$puzstep = "1";
+//$hint = "3";
+//$puzstep = "1";
 $stmt->bind_param("dii", $time, $hint, $puzstep);
 
 if ($stmt->execute())
