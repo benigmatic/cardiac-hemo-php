@@ -35,10 +35,9 @@ $stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $si
 if ($stmt->execute())
 {
     $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated GAMEid value is: " . $aid;
-    
     // returning generated code
-    echo json_encode($aid);
+    echo $aid;
+    
 } 
 else 
 {
