@@ -21,7 +21,7 @@ $stmt->bind_param("idi", $completed, $time, $gameid);
 
 if ($stmt->execute())
 {
-    echo "Step " . $puzstep . " updated.";
+    echo "Run " . $gameid . " submitted.";
 } 
 else 
 {
