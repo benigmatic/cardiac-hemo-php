@@ -26,7 +26,7 @@ $sid4 = intval($conn->real_escape_string($_POST['SID4']));
 $sid5 = intval($conn->real_escape_string($_POST['SID5']));
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, TimeSpent, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_attempts (TeamName, TimeSpent, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 $stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $sid4, $sid5);
 
@@ -35,7 +35,7 @@ $stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $si
 if ($stmt->execute())
 {
     $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated ID value is: " . $aid;
+    echo "New record created successfully. The auto-generated GAMEid value is: " . $aid;
 } 
 else 
 {
