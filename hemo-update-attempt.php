@@ -21,6 +21,7 @@ $joiner = 'SID' . $num;
 echo "check4";
 $stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ?, $joiner = ? WHERE GAMEid = ?");
 echo "check5";
+echo $joiner;
 $stmt->bind_param("diii", $time, $completed, $sid, $aid);
 echo "check6";
 // return statements
