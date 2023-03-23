@@ -19,10 +19,9 @@ $puzzlename = $conn->real_escape_string($_POST['PuzzleName']);
 $puzzlestep = intval($conn->real_escape_string($_POST['PuzzleStep']));
 $hintstaken = intval($conn->real_escape_string($_POST['HintsTaken']));
 $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
-$completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzleattempt (GameID, PuzzleName, PuzzleStep, HintsTaken, TimeTaken, Completed) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("isiidi", $aid, $puzzlename, $puzzlestep, $hintstaken, $time, $completed);
+$stmt = $conn->prepare("INSERT INTO drhemo_puzzleattempt (GameID, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
 
 // return statements
 if ($stmt->execute())
