@@ -17,25 +17,40 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $puzzlename = $conn->real_escape_string($_POST['PuzzleName']);
 $puzzlestep = intval($conn->real_escape_string($_POST['PuzzleStep']));
-
-// check if these already have an entry in the table
-
-
 $hintstaken = intval($conn->real_escape_string($_POST['HintsTaken']));
 $time = floatval($conn->real_escape_string($_POST['TimeTaken']));
 
-$stmt = $conn->prepare("INSERT INTO drhemo_puzzlesteps (GAMEid, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
+// check if these already have an entry in the table
 
-// return statements
-if ($stmt->execute())
+// Prepare the statement
+$stmt = $conn->prepare("SELECT PUZSTEPid FROM drhemo_puzzlesteps WHERE GAMEid = ? AND PuzzleName = ? AND PuzzleStep = ?");
+$stmt->bind_param("isi", $aid, $puzzlename, $puzzlestep);
+
+// Execute the statement
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Check if the PuzzleStep already exists
+if ($result->num_rows == 0)
 {
-    $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated PUZSTEPid value is: " . $aid;
-} 
+  // If not, create a new PuzzleStep
+  $stmt = $conn->prepare("INSERT INTO drhemo_puzzlesteps (GAMEid, PuzzleName, PuzzleStep, HintsTaken, TimeTaken) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("isiid", $aid, $puzzlename, $puzzlestep, $hintstaken, $time);
+  if($stmt->execute())
+  {
+      // returning PUZid
+      $ret = mysqli_insert_id($conn);
+      echo $ret;
+  }
+  else
+  {
+      echo "Error: " . $stmt->err . "<br>" . $conn->error;
+  }
+
+}
 else 
 {
-    echo "Error: " . $stmt->err . "<br>" . $conn->error;
+    // return the PUZid
+    echo $result;
 }
-
 ?>
