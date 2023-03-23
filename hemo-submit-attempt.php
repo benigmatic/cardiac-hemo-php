@@ -15,8 +15,8 @@ $completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 
 $stmt = $conn->prepare("UPDATE drhemo_attempts SET Completed = ?, TimeSpent = ? WHERE GAMEid = ?");
-//$completed = "1";
-// $gameid = "8";
+$completed = "1";
+$gameid = "8";
 $stmt->bind_param("idi", $completed, $time, $gameid);
 
 if ($stmt->execute())
