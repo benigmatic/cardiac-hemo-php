@@ -14,9 +14,13 @@ $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
 
+$sid = intval($conn->real_escape_string($_POST['SID']));
+$num = intval($conn->real_escape_string($_POST['JoinNum']));
 
-$stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ? WHERE GAMEid = ?");
-$stmt->bind_param("dii", $time, $completed, $aid);
+$joiner = 'SID' . $num;
+
+$stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ?, $joiner = ? WHERE GAMEid = ?");
+$stmt->bind_param("diii", $time, $completed, $sid, $aid);
 
 // return statements
 if ($stmt->execute())
