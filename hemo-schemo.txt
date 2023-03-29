@@ -9,3 +9,33 @@
    │                    │    │                   │    │                   │
    └────────────────────┘    └───────────────────┘    └───────────────────┘
 
+Names have changed as the database _______ to mesh with the game scripts.
+Rather than change the names like a responsible programmer I'm providing translations
+
+*-*- Attempts -*-*
+GameRuns
+
+Relevant scripts:
+hemo-create-attempt
+hemo-update-attempt
+hemo-submit-attempt
+
+*-*- PuzzleSteps -*-*
+Answers (not to be confused with *-*- Answers -*-*)
+
+Relevant scripts:
+hemo-create-puzzleStep
+hemo-create-puzzleStep2
+hemo-update-puzzleStep
+
+*-*- Answers -*-*
+Wrong answers
+
+Relevant scripts:
+hemo-create-answer
+
+
+*-*- Uncategorized -*-*
+hemo-get-top-scores
+ - Retrieve top 3 best scores for Scoreboard in BaseRoomScene
+

@@ -15,7 +15,7 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 
 // Assign table input from POST request
 // real_escape_string sanitizes input to prevent SQL injection 
-$name = $conn->real_escape_string($_POST['Name']);
+$name = $conn->real_escape_string($_POST['TeamName']);
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 // $completed = intval($conn->real_escape_string($_POST['Completed']));
 $completed = (isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0;
@@ -26,7 +26,7 @@ $sid4 = intval($conn->real_escape_string($_POST['SID4']));
 $sid5 = intval($conn->real_escape_string($_POST['SID5']));
 
 // Prepared statement ensures matching data types
-$stmt = $conn->prepare("INSERT INTO drhemo_attempts (Name, TimeSpent, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO drhemo_attempts (TeamName, TimeSpent, Completed, SID1, SID2, SID3, SID4, SID5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 $stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $sid4, $sid5);
 
@@ -35,7 +35,9 @@ $stmt->bind_param("sdiiiiii", $name, $time, $completed, $sid1, $sid2, $sid3, $si
 if ($stmt->execute())
 {
     $aid = mysqli_insert_id($conn);
-    echo "New record created successfully. The auto-generated ID value is: " . $aid;
+    // returning generated code
+    echo $aid;
+    
 } 
 else 
 {
