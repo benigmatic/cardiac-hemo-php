@@ -26,13 +26,6 @@ try{
     #$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
     echo "updateDebug: 4.2";
     echo $stmt->error;
-    if (!$stmt)
-    {
-        echo "updateDebug: 4.3";
-        echo mysqli_error($conn));
-        echo "updateDebug: 4.4";
-        
-    }
     
     $stmt->execute();
     $stmt->bind_result($column_name);
