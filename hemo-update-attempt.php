@@ -16,12 +16,14 @@ $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0);
 
 # new joiner stuff
-# $sid = intval($conn->real_escape_string($_POST['SID']));
+$sid = $conn->real_escape_string($_POST['SID']);
 # $num = intval($conn->real_escape_string($_POST['JoinNum']));
 # $joiner = 'SID' . $num;
 
 # prepared statement
 # $stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ?, $joiner = ? WHERE GAMEid = ?");
+
+# $stmt->bind_param("diii", $time, $completed, $sid, $aid);
 
 $stmt = $dbh->prepare('SELECT 
         IFNULL(NULLIF(SID1, \'\'), \'SID1\') AS empty_column,
@@ -47,7 +49,14 @@ $stmt->bindParam(':sid3', $sid3);
 $stmt->bindParam(':sid4', $sid4);
 $stmt->bindParam(':sid5', $sid5);
 
-$stmt->bind_param("diii", $time, $completed, $sid, $aid);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$empty_column = $result['empty_column'];
+
+$stmt = $dbh->prepare("UPDATE drhemo_attempts SET :empty_column = :sid WHERE GAMEid = aid);
+
+$stmt->bindParam(':sid', $sid);
+$stmt->bindParam(':aid', $aid);
+
 // return statements
 if ($stmt->execute())
 {
