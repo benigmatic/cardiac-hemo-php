@@ -36,7 +36,7 @@ try{
     echo $column_name;
 } catch (Exception $e) {
     
-    echo "Error: " . $e->GetMessage();
+    echo "Error: " . $e->getMessage();
 }
     
 if ($column_name) {
