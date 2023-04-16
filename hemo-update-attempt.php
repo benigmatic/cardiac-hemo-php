@@ -15,48 +15,33 @@ $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0);
 
+$stmt->execute();
+$stmt->bind_result($column_name);
+$stmt->fetch();
+
 # new joiner stuff
-$sid = $conn->real_escape_string($_POST['SID']);
-# $num = intval($conn->real_escape_string($_POST['JoinNum']));
-# $joiner = 'SID' . $num;
+$sid = intval($conn->real_escape_string($_POST['SID']));
 
-# prepared statement
-# $stmt = $conn->prepare("UPDATE drhemo_attempts SET TimeSpent = ?, Completed = ?, $joiner = ? WHERE GAMEid = ?");
+# find first non duplicate empty space, alternatively remove a number from the attempt if they leave the lobby 
+// $stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND 
+// ((SID1 = 0 AND SID1 != ?) OR 
+// (SID2 = 0 AND SID2 != ?) OR 
+// (SID3 = 0 AND SID3 != ?) OR 
+// (SID4 = 0 AND SID4 != ?) OR 
+// (SID5 = 0 AND SID5 != ?)) LIMIT 1");
+//$stmt->bind_param("sssss", $sid, $sid, $sid, $sid, $sid, $sid);
+$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
+$stmt->execute();
+$stmt->bind_result($column_name);
+$stmt->fetch();
 
-# $stmt->bind_param("diii", $time, $completed, $sid, $aid);
+if ($column_name) {
+  $stmt = $conn->prepare("UPDATE dr_hemo_attempts SET $column_name = ? WHERE SID1 = ? AND SID2 = ? AND SID3 = ? AND SID4 = ? AND SID5 = ?");
+  $stmt->bind_param("iiiiii", $sid, $sid1, $sid2, $sid3, $sid4, $sid5);
+  $stmt->execute();
+}
 
-$stmt = $dbh->prepare('SELECT 
-        IFNULL(NULLIF(SID1, \'\'), \'SID1\') AS empty_column,
-        IFNULL(NULLIF(SID2, \'\'), \'SID2\') AS empty_column,
-        IFNULL(NULLIF(SID3, \'\'), \'SID3\') AS empty_column,
-        IFNULL(NULLIF(SID4, \'\'), \'SID4\') AS empty_column,
-        IFNULL(NULLIF(SID5, \'\'), \'SID5\') AS empty_column
-    FROM :table_name
-    WHERE \'\' IN (:sid1, :sid2, :sid3, :sid4, :sid5)
-    LIMIT 1');
-
-$table_name = 'drhemo_attempts';
-$sid1 = 'SID1';
-$sid2 = 'SID2';
-$sid3 = 'SID3';
-$sid4 = 'SID4';
-$sid5 = 'SID5';
-
-$stmt->bindParam(':table_name', $table_name);
-$stmt->bindParam(':sid1', $sid1);
-$stmt->bindParam(':sid2', $sid2);
-$stmt->bindParam(':sid3', $sid3);
-$stmt->bindParam(':sid4', $sid4);
-$stmt->bindParam(':sid5', $sid5);
-
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-$empty_column = $result['empty_column'];
-
-$stmt = $dbh->prepare("UPDATE drhemo_attempts SET :empty_column = :sid WHERE GAMEid = aid);
-
-$stmt->bindParam(':sid', $sid);
-$stmt->bindParam(':aid', $aid);
-
+$stmt->bind_param("diii", $time, $completed, $sid, $aid);
 // return statements
 if ($stmt->execute())
 {
