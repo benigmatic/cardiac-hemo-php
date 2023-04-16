@@ -30,7 +30,13 @@ try{
     $stmt->execute();
     $stmt->bind_result($column_name);
     $stmt->fetch();
-    echo $column_name;
+    
+    $results = $stmt->get_result();
+    while ($row = $results->fetch_assoc()) 
+    {
+    echo $row['COLUMN_NAME'] . '<br>';
+    }
+    
 } catch (Exception $e) {
     
     echo "Error: " . $e->getMessage();
