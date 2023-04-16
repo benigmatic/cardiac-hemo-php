@@ -45,8 +45,9 @@ try{
     
 if ($column_name) {
   $stmt = $conn->prepare("UPDATE dr_hemo_attempts SET $column_name = ? WHERE SID1 = ? AND SID2 = ? AND SID3 = ? AND SID4 = ? AND SID5 = ?");
-    echo "updateDebug: 6";
+  echo "updateDebug: 6";
   $stmt->bind_param("iiiiii", $sid, $sid1, $sid2, $sid3, $sid4, $sid5);
+  echo "updateDebug: 6.1";
   $stmt->execute();
 }
 echo "updateDebug: 7";
