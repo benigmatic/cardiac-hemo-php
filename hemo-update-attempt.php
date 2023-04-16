@@ -19,21 +19,20 @@ echo "updateDebug: 2";
 # new joiner stuff
 $sid = intval($conn->real_escape_string($_POST['SID']));
 echo "updateDebug: 3";
-# find first non duplicate empty space, alternatively remove a number from the attempt if they leave the lobby 
-// $stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND 
-// ((SID1 = 0 AND SID1 != ?) OR 
-// (SID2 = 0 AND SID2 != ?) OR 
-// (SID3 = 0 AND SID3 != ?) OR 
-// (SID4 = 0 AND SID4 != ?) OR 
-// (SID5 = 0 AND SID5 != ?)) LIMIT 1");
-//$stmt->bind_param("sssss", $sid, $sid, $sid, $sid, $sid, $sid);
-
 try{
     echo "updateDebug: 4";
     $stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND SID2 = 0");
     echo "updateDebug: 4.1";
     #$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
     echo "updateDebug: 4.2";
+    if (!$stmt)
+    {
+        echo "updateDebug: 4.3";
+        echo mysqli_error($conn));
+        echo "updateDebug: 4.4";
+        exit();
+    }
+    
     $stmt->execute();
     $stmt->bind_result($column_name);
     $stmt->fetch();
