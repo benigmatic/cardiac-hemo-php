@@ -27,16 +27,19 @@ echo "updateDebug: 3";
 // (SID4 = 0 AND SID4 != ?) OR 
 // (SID5 = 0 AND SID5 != ?)) LIMIT 1");
 //$stmt->bind_param("sssss", $sid, $sid, $sid, $sid, $sid, $sid);
-$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
-echo "updateDebug: 4";
-$stmt->execute();
-echo "updateDebug: 4.1";
-$stmt->bind_result($column_name);
-echo "updateDebug: 4.2";
-$stmt->fetch();
-echo "updateDebug: 5 - column name:";
-echo $column_name;
 
+try{
+    $stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
+    $stmt->execute();
+    $stmt->bind_result($column_name);
+    $stmt->fetch();
+    echo $column_name;
+}
+    catch {Exception $e)
+{
+    echo "Error: " . $e->GetMessage();
+}
+    
 if ($column_name) {
   $stmt = $conn->prepare("UPDATE dr_hemo_attempts SET $column_name = ? WHERE SID1 = ? AND SID2 = ? AND SID3 = ? AND SID4 = ? AND SID5 = ?");
     echo "updateDebug: 6";
