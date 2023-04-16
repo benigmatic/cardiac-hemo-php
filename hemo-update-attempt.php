@@ -34,9 +34,8 @@ try{
     $stmt->bind_result($column_name);
     $stmt->fetch();
     echo $column_name;
-}
-    catch {Exception $e)
-{
+} catch (Exception $e) {
+    
     echo "Error: " . $e->GetMessage();
 }
     
