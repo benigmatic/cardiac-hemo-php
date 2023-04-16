@@ -15,9 +15,6 @@ $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0);
 echo "updateDebug: 1";
-$stmt->execute();
-$stmt->bind_result($column_name);
-$stmt->fetch();
 echo "updateDebug: 2";
 # new joiner stuff
 $sid = intval($conn->real_escape_string($_POST['SID']));
