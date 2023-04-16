@@ -19,28 +19,22 @@ echo "updateDebug: 2 ";
 # new joiner stuff
 $sid = intval($conn->real_escape_string($_POST['SID']));
 echo "updateDebug: 3 ";
-try{
-    echo "updateDebug: 4 ";
-    $stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts'");
-    echo "updateDebug: 4.1 ";
-    #$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
-    echo "updateDebug: 4.2 ";
-    # echo $stmt->error;
-    
-    $stmt->execute();
-    $stmt->bind_result($column_name);
-    $stmt->fetch();
-    
-    $results = $stmt->get_result();
-    while ($row = $results->fetch_assoc()) 
-    {
+$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts'");
+echo "updateDebug: 4.1 ";
+#$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
+echo "updateDebug: 4.2 ";
+# echo $stmt->error;
+
+$stmt->execute();
+$stmt->bind_result($column_name);
+$stmt->fetch();
+
+$results = $column_name->get_result();
+while ($row = $results->fetch_assoc()) 
+{
     echo $row['COLUMN_NAME'] . '<br>';
-    }
-    
-} catch (Exception $e) {
-    
-    echo "Error: " . $e->getMessage();
 }
+    
     
 if ($column_name) {
   $stmt = $conn->prepare("UPDATE dr_hemo_attempts SET $column_name = ? WHERE SID1 = ? AND SID2 = ? AND SID3 = ? AND SID4 = ? AND SID5 = ?");
