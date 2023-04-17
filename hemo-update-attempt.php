@@ -29,9 +29,9 @@ $stmt->bind_result($column_name1, $column_name2, $column_name3, $column_name4, $
 $stmt->fetch();
 
 echo $column_name1;
-echo $column_name1;
-echo $column_name1;
-echo $column_name1;
+echo $column_name2;
+echo $column_name3;
+echo $column_name4;
 echo $column_name5;
 echo "updateDebug: 4.3 ";
 
