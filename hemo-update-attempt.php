@@ -20,19 +20,17 @@ echo "updateDebug: 2 ";
 $sid = intval($conn->real_escape_string($_POST['SID']));
 
 echo "updateDebug: 3 ";
-$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts'");
+$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts'");
 #$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
 echo "updateDebug: 4.2 ";
 
+
+
 $stmt->execute();
-$stmt->bind_result($column_name1, $column_name2, $column_name3, $column_name4, $column_name5);
+$stmt->bind_result($column_name);
 $stmt->fetch();
 
-echo $column_name1;
-echo $column_name2;
-echo $column_name3;
-echo $column_name4;
-echo $column_name5;
+echo $column_name;
 echo "updateDebug: 4.3 ";
 
 $results = $column_name->get_result();
