@@ -14,15 +14,12 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 $aid = intval($conn->real_escape_string($_POST['GAMEid']));
 $time = floatval($conn->real_escape_string($_POST['TimeSpent']));
 $completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0);
-echo "updateDebug: 1 ";
-echo "updateDebug: 2 ";
 # new joiner stuff
 $sid = intval($conn->real_escape_string($_POST['SID']));
 
-echo "updateDebug: 3 ";
-$stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
-#$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
-echo "updateDebug: 4.2 ";
+
+//$stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
+$stmt = $conn->prepare("SELECT c.COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS c INNER JOIN drhemo_attempts a ON c.COLUMN_NAME = a.SID WHERE c.TABLE_NAME = N'drhemo_attempts' AND c.COLUMN_NAME LIKE 'SID%' AND a.VALUE = 0");
 
 
 $stmt->execute();
