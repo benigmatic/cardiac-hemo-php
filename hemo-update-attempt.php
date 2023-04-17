@@ -18,9 +18,7 @@ $completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) 
 $sid = intval($conn->real_escape_string($_POST['SID']));
 
 
-//$stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
-$stmt = $conn->prepare("SELECT c.COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS c INNER JOIN drhemo_attempts a ON c.COLUMN_NAME = a.SID WHERE c.TABLE_NAME = N'drhemo_attempts' AND c.COLUMN_NAME LIKE 'SID%' AND a.VALUE = 0");
-
+$stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
 
 $stmt->execute();
 $result = $stmt->get_result();
@@ -28,9 +26,36 @@ $result = $stmt->get_result();
 // $stmt->bind_result($column_name);
 // $stmt->fetch();
 
+echo "updateDebug: 3.9";
+$columns = array();
+echo "Found rows: ";
 while ($row = $result->fetch_assoc()) {
-    echo $row['COLUMN_NAME'] . "<br>";
+    echo $row['COLUMN_NAME'] . " ";
+    $columns[] = $row['COLUMN_NAME'];
 }
+
+echo "updateDebug: 4.0 ";
+foreach ($columns as $column)
+{
+    $stmt = $conn->prepare("SELECT VALUE FROM drhemo_attempts WHERE SID = ?");
+    $stmt->bind_param("s", $column);
+    
+echo "updateDebug: 4.1 ";
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+echo "updateDebug: 4.2 ";
+    $row = $result->fetch_assoc();
+    if ($row['VALUE'] == 0) {
+        $new_value = 1; // replace with your desired new value
+        $stmt = $conn->prepare("UPDATE drhemo_attempts SET VALUE = ? WHERE SID = ?");
+        $stmt->bind_param("ss", $new_value, $column);
+        $stmt->execute();
+
+        echo "Updated column " . $column . " with value " . $new_value;
+        break;
+    }
+
 echo "updateDebug: 4.3 ";
 
 $results = $column_name->get_result();
