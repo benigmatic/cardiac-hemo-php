@@ -18,16 +18,17 @@ echo "updateDebug: 1 ";
 echo "updateDebug: 2 ";
 # new joiner stuff
 $sid = intval($conn->real_escape_string($_POST['SID']));
+
 echo "updateDebug: 3 ";
 $stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts'");
-echo "updateDebug: 4.1 ";
 #$stmt = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'drhemo_attempts' AND (SID1 = 0 OR SID2 = 0 OR SID3 = 0 OR SID4 = 0 OR SID5 = 0) LIMIT 1");
 echo "updateDebug: 4.2 ";
-# echo $stmt->error;
 
 $stmt->execute();
 $stmt->bind_result($column_name);
 $stmt->fetch();
+
+echo $column_name;
 
 $results = $column_name->get_result();
 while ($row = $results->fetch_assoc()) 
