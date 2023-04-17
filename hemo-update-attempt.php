@@ -31,7 +31,7 @@ foreach ($columns as $column) {
   // If value is 0, update to 1 and break loop
   if (mysqli_num_rows($result) > 0) {
      echo "Found empty space";
-    $update_query = "UPDATE drhemo_attempts SET $column = $sid WHERE $column = 0";
+    $update_query = "UPDATE drhemo_attempts SET $column = $sid WHERE $column = 0 AND GAMEid = $aid";
     mysqli_query($conn, $update_query);
     break;
   }
