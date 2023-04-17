@@ -25,12 +25,15 @@ $stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAM
 echo "updateDebug: 4.2 ";
 
 
-
 $stmt->execute();
-$stmt->bind_result($column_name);
-$stmt->fetch();
+$result = $stmt->get_result();
 
-echo $column_name;
+// $stmt->bind_result($column_name);
+// $stmt->fetch();
+
+while ($row = $result->fetch_assoc()) {
+    echo $row['COLUMN_NAME'] . "<br>";
+}
 echo "updateDebug: 4.3 ";
 
 $results = $column_name->get_result();
