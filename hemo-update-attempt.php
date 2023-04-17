@@ -25,7 +25,7 @@ echo "updateDebug: 4 ";
 // $stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
 foreach ($columns as $column) {
   // Check if value is 0
-  $query = "SELECT $column FROM table_name WHERE $column = 0 LIMIT 1";
+  $query = "SELECT $column FROM drhemo_attempts WHERE GAMEid = $aid AND $column = 0 LIMIT 1";
   $result = mysqli_query($conn, $query);
 
   // If value is 0, update to 1 and break loop
@@ -43,12 +43,12 @@ $result = $stmt->get_result();
 // $stmt->bind_result($column_name);
 // $stmt->fetch();
 
-while ($row = $result->fetch_assoc()) {
-    echo $row['COLUMN_NAME'] . "<br>";
-}
-echo "updateDebug: 4.3 ";
+// while ($row = $result->fetch_assoc()) {
+//     echo $row['COLUMN_NAME'] . "<br>";
+// }
+// echo "updateDebug: 4.3 ";
 
-$results = $column_name->get_result();
+// $results = $column_name->get_result();
     
     
 // if ($column_name) {
