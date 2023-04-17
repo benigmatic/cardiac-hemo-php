@@ -27,9 +27,6 @@ echo "updateDebug: 4.2 ";
 
 
 $stmt->execute();
-
-$stmt->get_result()
-
 $stmt->bind_result($column_name);
 $stmt->fetch();
 
@@ -37,10 +34,6 @@ echo $column_name;
 echo "updateDebug: 4.3 ";
 
 $results = $column_name->get_result();
-while ($row = $results->fetch_assoc()) 
-{
-    echo $row['COLUMN_NAME'] . '<br>';
-}
     
     
 if ($column_name) {
