@@ -25,13 +25,13 @@ echo "updateDebug: 4 ";
 // $stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
 foreach ($columns as $column) {
   // Check if value is 0
-  $query = "SELECT $column FROM drhemo_attempts WHERE GAMEid = $aid AND $column = 0 LIMIT 1";
+  $query = "SELECT $column FROM drhemo_attempts WHERE GAMEid = $aid AND $column = $sid LIMIT 1";
   $result = mysqli_query($conn, $query);
 
   // If value is 0, update to 1 and break loop
   if (mysqli_num_rows($result) > 0) {
-     echo "Found empty space";
-    $update_query = "UPDATE drhemo_attempts SET $column = $sid WHERE $column = 0 AND GAMEid = $aid";
+     echo "Found player";
+    $update_query = "UPDATE drhemo_attempts SET $column = 0 WHERE $column = $sid AND GAMEid = $aid";
     mysqli_query($conn, $update_query);
     break;
   }
