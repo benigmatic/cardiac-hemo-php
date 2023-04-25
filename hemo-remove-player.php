@@ -35,8 +35,9 @@ foreach ($columns as $column) {
   }
 }
 
-$stmt->execute();
-$result = $stmt->get_result();
+echo "removeDebug: 1 ";
+// $stmt->execute();
+// $result = $stmt->get_result();
 
 // $stmt->bind_result($column_name);
 // $stmt->fetch();
@@ -58,13 +59,16 @@ $result = $stmt->get_result();
 // }
 //$stmt->bind_param("diii", $time, $completed, $sid, $aid);
 
-
+echo "removeDebug: 7 ";
 // return statements
 if ($stmt->execute())
 {
+    echo "removeDebug: 2 ";
     echo "Attempt " . $aid . " updated.";
 } 
 else 
 {
+    echo "removeDebug: 3 ";
     echo "Error: " . $stmt->err . "<br>" . $conn->error;
 }
+echo "removeDebug: 8 ";
