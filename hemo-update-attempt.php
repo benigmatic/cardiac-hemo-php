@@ -34,13 +34,14 @@ foreach ($columns as $column) {
   if (mysqli_num_rows($result) > 0) {
      echo "Found empty space";
     $update_query = "UPDATE drhemo_attempts SET $column = $sid WHERE $column = 0 AND GAMEid = $aid";
+      echo "Adding new SID to the attempt";
     mysqli_query($conn, $update_query);
     break;
   }
 }
 
-$stmt->execute();
-$result = $stmt->get_result();
+// $stmt->execute();
+// $result = $stmt->get_result();
 
 // $stmt->bind_result($column_name);
 // $stmt->fetch();
@@ -64,14 +65,14 @@ $result = $stmt->get_result();
 
 
 // return statements
-if ($stmt->execute())
-{
-    echo "Attempt " . $aid . " updated.";
-} 
-else 
-{
-    echo "Error: " . $stmt->err . "<br>" . $conn->error;
-}
+// if ($stmt->execute())
+// {
+//     echo "Attempt " . $aid . " updated.";
+// } 
+// else 
+// {
+//     echo "Error: " . $stmt->err . "<br>" . $conn->error;
+// }
 
 
 ?>
