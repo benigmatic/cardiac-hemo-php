@@ -59,16 +59,16 @@ echo "removeDebug: 1 ";
 // }
 //$stmt->bind_param("diii", $time, $completed, $sid, $aid);
 
-echo "removeDebug: 7 ";
-// return statements
-if ($stmt->execute())
-{
-    echo "removeDebug: 2 ";
-    echo "Attempt " . $aid . " updated.";
-} 
-else 
-{
-    echo "removeDebug: 3 ";
-    echo "Error: " . $stmt->err . "<br>" . $conn->error;
-}
-echo "removeDebug: 8 ";
+// echo "removeDebug: 7 ";
+// // return statements
+// if ($stmt->execute())
+// {
+//     echo "removeDebug: 2 ";
+//     echo "Attempt " . $aid . " updated.";
+// } 
+// else 
+// {
+//     echo "removeDebug: 3 ";
+//     echo "Error: " . $stmt->err . "<br>" . $conn->error;
+// }
+// echo "removeDebug: 8 ";
