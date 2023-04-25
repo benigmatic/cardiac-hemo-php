@@ -21,7 +21,7 @@ $columns = array("SID1", "SID2", "SID3", "SID4", "SID5");
 echo "updateDebug: 3 ";
 echo "updateDebug: 4 ";
 
-foreach ($columns as $column) {
+foreach (array_reverse($columns) as $column) {
   // Check if value is 0
   $query = "SELECT $column FROM drhemo_attempts WHERE GAMEid = $aid AND $column = $sid LIMIT 1";
   $result = mysqli_query($conn, $query);
