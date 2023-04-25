@@ -1,8 +1,4 @@
 <?php
-# Deprecated, Unity doesn't have ideal way to pull from a player's instance when they power off a device. OnDisconnectedFromPhoton is useful 
-# if a player disconnects from Photon, BUT is much more likely to proc if they have connection issues.
-# An alternative method is to keep a list of player's who have left the room, pull the DB who has left, and enter into their spot. Gets complicated. Needs rethinking
-
 
 require "database/config.php";
 
