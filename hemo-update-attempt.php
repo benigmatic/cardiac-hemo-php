@@ -1,5 +1,7 @@
 <?php
 
+// for adding new players to the attempt after host creates the lobby
+
 require "database/config.php";
 
 // Establish the connection
