@@ -12,17 +12,15 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
 
 # typical update stuffs
 $aid = intval($conn->real_escape_string($_POST['GAMEid']));
-$time = floatval($conn->real_escape_string($_POST['TimeSpent']));
-$completed = intval((isset($_POST['Completed']) && !empty($_POST['Completed'])) ? $conn->real_escape_string($_POST['Completed']) : 0);
+$sid = intval($conn->real_escape_string($_POST['SID']));
+
 echo "updateDebug: 1 ";
 echo "updateDebug: 2 ";
-# new joiner stuff
-$sid = intval($conn->real_escape_string($_POST['SID']));
 
 $columns = array("SID1", "SID2", "SID3", "SID4", "SID5");
 echo "updateDebug: 3 ";
 echo "updateDebug: 4 ";
-// $stmt = $conn->prepare("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'drhemo_attempts' AND COLUMN_NAME LIKE 'SID%' ");
+
 foreach ($columns as $column) {
   // Check if value is 0
   $query = "SELECT $column FROM drhemo_attempts WHERE GAMEid = $aid AND $column = $sid LIMIT 1";
