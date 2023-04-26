@@ -13,9 +13,8 @@ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQ
     die('Failed to connect to MySQL: '.mysqli_connect_error());
 } 
 
-// Assign table input from POST request
-// real_escape_string sanitizes input to prevent SQL injection 
-
+// prevent â€‹ from appearing in the database hopefully
+mysqli_set_charset($conn, "utf8");
 $puzid = intval($conn->real_escape_string($_POST['PUZSTEPid']));
 $sid = intval($conn->real_escape_string($_POST['SID']));
 $answer = $conn->real_escape_string($_POST['Answer']);
